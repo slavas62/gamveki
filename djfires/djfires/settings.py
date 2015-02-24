@@ -63,7 +63,7 @@ WSGI_APPLICATION = 'djfires.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'grias-t126-DB-MODEL-LAYER-STORE',
+        'NAME': 'fireapp',
         'USER': 'grias',
         'PASSWORD': 'rhtdtl,uhbfctu!',
         'HOST': '192.168.254.111',
@@ -74,7 +74,7 @@ DATABASES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = 'UTC'
 
