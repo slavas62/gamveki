@@ -1,18 +1,26 @@
+# -*- coding: utf-8 -*-
+import urllib2
+import zipfile
+import tempfile
+
+
 from django.contrib.gis.utils import LayerMapping
 from fires_app.models import Firms
 
 class Loader():
-    def __init__(self, url, path):
+    def __init__(self, url):
         self.url = url
-        self.path = path
         
     def do_download(self):
-        return '/home/alexander/Загрузки/FIRMS/2014-07-01-04/World_24h.shp'
+        tmp_zip_shape = tempfile.SpooledTemporaryFile()
+        tmp_zip_shape.write(urllib2.urlopen(self.url).read())
+        return tmp_zip_shape
 
 class Importer():
-    def __init__(self, model, data):
+    def __init__(self, model, url):
         self.model = model
-        self.data = data
+        self.url = url
+        self.loader = Loader(url)
     def do_import(self):
     #1 Open ds
 
@@ -20,16 +28,3 @@ class Importer():
 
     #3 Save features skip same features add logic where same points but different confidence
         pass    
-    
-
-
-if __name__ == '__main__':
-    pass
-    # download
-    url = ''
-    path = ''
-    loader = Loader(url, path)
-    shp = loader.do_download()
-    # import to db
-    imp = Importer(Firms, shp)
-    imp.do_import()
