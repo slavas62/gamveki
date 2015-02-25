@@ -7,25 +7,25 @@ class Satellite(models.Model):
                         (u'Aqua', u'Aqua'),
                         (u'Terra', u'Terra'),
                         )
-    sattelite = models.CharField(max_length=5, unique=True, choices=SELECT_SATTELITE)
+    satellite = models.CharField(max_length=5, unique=True, choices=SELECT_SATTELITE)
 
     class Meta:
         verbose_name = u'Спутник'
         verbose_name_plural = u'Спутники'
         
     def __unicode__(self): # __unicode__ on Python 2
-        return u'Спутник: %s' % (self.sattelite)
+        return u'Спутник: %s' % (self.satellite)
 
 class Firms(models.Model):
     date = models.DateTimeField(u'дата и время (UTC) получения данных о MODIS')
     satellite = models.ForeignKey(Satellite)
-    confidence = models.IntegerField(u'достоверность (0-100%)')
-    frp = models.FloatField(u'мощность пожара')
-    brightness21 = models.FloatField(u'температура по каналу 21/22 (в Кельвинах)')
-    brightness31 = models.FloatField(u'температура по каналу 31 (в Кельвинах)')
-    scan = models.FloatField(u'размер пиксела в направлении сканирования')
-    track = models.FloatField(u'размер пиксела в направлении траектории')
-    version = models.CharField(u'версия', max_length=10)
+    confidence = models.DecimalField(u'достоверность (0-100%)', max_digits=3, decimal_places=0)
+    frp = models.DecimalField(u'мощность пожара', max_digits=5, decimal_places=1)
+    brightness21 = models.DecimalField(u'температура по каналу 21/22 (в Кельвинах)', max_digits=4, decimal_places=1)
+    brightness31 = models.DecimalField(u'температура по каналу 31 (в Кельвинах)', max_digits=4, decimal_places=1)
+    scan = models.DecimalField(u'размер пиксела в направлении сканирования', max_digits=2, decimal_places=1)
+    track = models.DecimalField(u'размер пиксела в направлении траектории', max_digits=2, decimal_places=1)
+    version = models.DecimalField(u'версия', max_digits=2, decimal_places=1)
     geom = models.PointField(srid=4326)
     objects = models.GeoManager()
     
