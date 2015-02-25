@@ -15,7 +15,6 @@ class Loader():
         self.url = url
         
     def do_download(self):
-#         tmp_zip_shape = tempfile.SpooledTemporaryFile()
         tmp_zip_shape = open('/home/alexander/proj/fires_downloader/fires_downloader/Global_24h.zip', 'wb')
         tmp_zip_shape.write(urllib2.urlopen(self.url).read())
         return tmp_zip_shape
@@ -69,8 +68,4 @@ class Importer():
             'version': Decimal(str(feature['VERSION'])),
             'geom': ''.join(['POINT(',str(feature['LONGITUDE']),' ',str(feature['LATITUDE']),')'])
         }
-#         print data
         return Firms(**data)
-    #2 Iterate thought ds
-
-    #3 Save features skip same features add logic where same points but different confidence
