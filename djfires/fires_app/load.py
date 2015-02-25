@@ -43,14 +43,12 @@ class Importer():
         zip_file.close()
         self.ds = DataSource('/home/alexander/proj/fires_downloader/fires_downloader/unzip2/Global_24h.shp')
         self.layer = self.ds[0]
-        i = 0
         for feature in self.layer:
             try:
                 m = self.feature_to_model(feature)
                 m.save()
             except:
-                i += 1
-        print('wtf='), i
+                pass
     
     def feature_to_model(self, feature):
         acq_datetime = ''.join([str(feature['ACQ_DATE']), 
