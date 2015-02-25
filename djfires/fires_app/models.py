@@ -12,9 +12,7 @@ class Satellite(models.Model):
     class Meta:
         verbose_name = u'Спутник'
         verbose_name_plural = u'Спутники'
-        
-    def __unicode__(self): # __unicode__ on Python 2
-        return u'Спутник: %s' % (self.satellite)
+ 
 
 class Firms(models.Model):
     date = models.DateTimeField(u'дата и время (UTC) получения данных о MODIS')
@@ -33,7 +31,3 @@ class Firms(models.Model):
         unique_together = ('geom', 'date')
         verbose_name = u'MODIS данные о пожаре'
         verbose_name_plural = u'MODIS данные о пожарах'
-        
-    def __unicode__(self): # __unicode__ on Python 2
-        return u'Дата: %s, Достоверность: %s' % (self.date, self.confidence)
- 

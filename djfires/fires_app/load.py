@@ -6,8 +6,6 @@ import os
 from django.contrib.gis.gdal import DataSource
 from datetime import datetime
 from decimal import Decimal
-
-
 from fires_app.models import Firms, Satellite
 
 class Loader():
