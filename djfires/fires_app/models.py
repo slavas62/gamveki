@@ -36,22 +36,4 @@ class Firms(models.Model):
         
     def __unicode__(self): # __unicode__ on Python 2
         return u'Дата: %s, Достоверность: %s' % (self.date, self.confidence)
-        
-    
-    
-# Auto-generated `LayerMapping` dictionary for Firms model
-# firms_mapping = {
-#     'latitude' : 'LATITUDE',
-#     'longitude' : 'LONGITUDE',
-#     'brightness' : 'BRIGHTNESS',
-#     'scan' : 'SCAN',
-#     'track' : 'TRACK',
-#     'acq_date' : 'ACQ_DATE',
-#     'acq_time' : 'ACQ_TIME',
-#     'satellite' : 'SATELLITE',
-#     'confidence' : 'CONFIDENCE',
-#     'version' : 'VERSION',
-#     'bright_t31' : 'BRIGHT_T31',
-#     'frp' : 'FRP',
-#     'geom' : 'POINT',
-# }
+ 

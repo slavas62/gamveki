@@ -15,7 +15,6 @@ class Loader():
         self.url = url
         
     def do_download(self):
-#         tmp_zip_shape = tempfile.SpooledTemporaryFile()
         tmp_zip_shape = open('/home/alexander/proj/fires_downloader/fires_downloader/Global_24h.zip', 'wb')
         tmp_zip_shape.write(urllib2.urlopen(self.url).read())
         return tmp_zip_shape
@@ -44,14 +43,12 @@ class Importer():
         zip_file.close()
         self.ds = DataSource('/home/alexander/proj/fires_downloader/fires_downloader/unzip2/Global_24h.shp')
         self.layer = self.ds[0]
-        i = 0
         for feature in self.layer:
             try:
                 m = self.feature_to_model(feature)
                 m.save()
             except:
-                i += 1
-        print('wtf='), i
+                pass
     
     def feature_to_model(self, feature):
         acq_datetime = ''.join([str(feature['ACQ_DATE']), 
@@ -69,8 +66,4 @@ class Importer():
             'version': Decimal(str(feature['VERSION'])),
             'geom': ''.join(['POINT(',str(feature['LONGITUDE']),' ',str(feature['LATITUDE']),')'])
         }
-#         print data
         return Firms(**data)
-    #2 Iterate thought ds
-
-    #3 Save features skip same features add logic where same points but different confidence
