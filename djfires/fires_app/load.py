@@ -23,10 +23,6 @@ class Importer():
         self.model = model
         self.url = url
         self.loader = Loader(url)
-        self.short_satellite_names = {
-                             'A': 'Aqua',
-                             'T': 'Terra'
-        }
     
     def do_import(self):
     #1 Unzip and Open ds
@@ -41,15 +37,12 @@ class Importer():
         zip_file.close()
         self.ds = DataSource('/home/alexander/proj/fires_downloader/fires_downloader/unzip2/Global_24h.shp')
         self.layer = self.ds[0]
-        i = 0
         for feature in self.layer:
             try:
                 m = self.feature_to_model(feature)
                 m.save()
             except:
-                i += 1
                 pass
-        print i
     
     def feature_to_model(self, feature):
         acq_datetime = ''.join([str(feature['ACQ_DATE']), 
@@ -57,7 +50,7 @@ class Importer():
         dt = datetime.strptime(acq_datetime, '%Y-%m-%d%H%M')
         data = {
             'date': dt,
-            'satellite': Satellite.objects.get(satellite=self.short_satellite_names[str(feature['SATELLITE'])]),
+            'satellite': Satellite.objects.get(short_satellite_name=str(feature['SATELLITE'])),
             'confidence': Decimal(str(feature['CONFIDENCE'])),
             'frp': Decimal(str(feature['FRP'])),
             'brightness21': Decimal(str(feature['BRIGHTNESS'])),

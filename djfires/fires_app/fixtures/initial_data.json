@@ -1,0 +1,18 @@
+[
+{
+  "fields": {
+    "satellite": "Aqua",
+    "short_satellite_name": "A"
+  },
+  "model": "fires_app.satellite",
+  "pk": 1
+},
+{
+  "fields": {
+    "satellite": "Terra",
+    "short_satellite_name": "T"
+  },
+  "model": "fires_app.satellite",
+  "pk": 2
+}
+]
