@@ -6,7 +6,7 @@ import os
 from django.contrib.gis.gdal import DataSource
 from datetime import datetime
 from decimal import Decimal
-from fires_app.models import Firms, Satellite
+from fires_app.models import Fire, Satellite
 
 class Loader():
     def __init__(self, url):
@@ -41,12 +41,15 @@ class Importer():
         zip_file.close()
         self.ds = DataSource('/home/alexander/proj/fires_downloader/fires_downloader/unzip2/Global_24h.shp')
         self.layer = self.ds[0]
+        i = 0
         for feature in self.layer:
             try:
                 m = self.feature_to_model(feature)
                 m.save()
             except:
+                i += 1
                 pass
+        print i
     
     def feature_to_model(self, feature):
         acq_datetime = ''.join([str(feature['ACQ_DATE']), 
@@ -62,6 +65,6 @@ class Importer():
             'scan': Decimal(str(feature['SCAN'])),
             'track': Decimal(str(feature['TRACK'])),
             'version': Decimal(str(feature['VERSION'])),
-            'geom': ''.join(['POINT(',str(feature['LONGITUDE']),' ',str(feature['LATITUDE']),')'])
+            'geometry': ''.join(['POINT(',str(feature['LONGITUDE']),' ',str(feature['LATITUDE']),')'])
         }
-        return Firms(**data)
+        return Fire(**data)

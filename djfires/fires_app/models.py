@@ -14,7 +14,7 @@ class Satellite(models.Model):
         verbose_name_plural = u'Спутники'
  
 
-class Firms(models.Model):
+class Fire(models.Model):
     date = models.DateTimeField(u'дата и время (UTC) получения данных о MODIS')
     satellite = models.ForeignKey(Satellite)
     confidence = models.DecimalField(u'достоверность (0-100%)', max_digits=3, decimal_places=0)
@@ -24,10 +24,10 @@ class Firms(models.Model):
     scan = models.DecimalField(u'размер пиксела в направлении сканирования', max_digits=2, decimal_places=1)
     track = models.DecimalField(u'размер пиксела в направлении траектории', max_digits=2, decimal_places=1)
     version = models.DecimalField(u'версия', max_digits=2, decimal_places=1)
-    geom = models.PointField(srid=4326)
+    geometry = models.PointField(srid=4326)
     objects = models.GeoManager()
     
     class Meta:
-        unique_together = ('geom', 'date')
+        unique_together = ('geometry', 'date')
         verbose_name = u'MODIS данные о пожаре'
         verbose_name_plural = u'MODIS данные о пожарах'

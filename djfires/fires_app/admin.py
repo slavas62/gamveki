@@ -1,6 +1,6 @@
 from django.contrib import admin
-from fires_app.models import Firms, Satellite
+from fires_app.models import Fire, Satellite
 
 # Register your models here.
-admin.site.register(Firms)
+admin.site.register(Fire)
 admin.site.register(Satellite)
