@@ -12,7 +12,7 @@ class Loader():
     def __init__(self, url):
         self.url = url
         
-    def do_download(self):
+    def download(self):
         tmp_zip_shape = open('/home/alexander/proj/fires_downloader/fires_downloader/Global_24h.zip', 'wb')
         tmp_zip_shape.write(urllib2.urlopen(self.url).read())
         return tmp_zip_shape
@@ -24,9 +24,9 @@ class Importer():
         self.url = url
         self.loader = Loader(url)
     
-    def do_import(self):
+    def load_to_db(self):
     #1 Unzip and Open ds
-        zip_file = zipfile.ZipFile(self.loader.do_download().name)
+        zip_file = zipfile.ZipFile(self.loader.download().name)
         zdir = '/home/alexander/proj/fires_downloader/fires_downloader/unzip2'
         for name in zip_file.namelist():
             data = zip_file.read(name)
@@ -58,6 +58,6 @@ class Importer():
             'scan': Decimal(str(feature['SCAN'])),
             'track': Decimal(str(feature['TRACK'])),
             'version': Decimal(str(feature['VERSION'])),
-            'geometry': ''.join(['POINT(',str(feature['LONGITUDE']),' ',str(feature['LATITUDE']),')'])
+            'geometry': feature.geom.geos
         }
         return Fire(**data)
