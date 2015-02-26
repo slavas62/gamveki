@@ -23,10 +23,6 @@ class Importer():
         self.model = model
         self.url = url
         self.loader = Loader(url)
-        self.short_satellite_names = {
-                             'A': 'Aqua',
-                             'T': 'Terra'
-        }
     
     def do_import(self):
     #1 Unzip and Open ds
@@ -54,7 +50,7 @@ class Importer():
         dt = datetime.strptime(acq_datetime, '%Y-%m-%d%H%M')
         data = {
             'date': dt,
-            'satellite': Satellite.objects.get(satellite=self.short_satellite_names[str(feature['SATELLITE'])]),
+            'satellite': Satellite.objects.get(short_satellite_name=str(feature['SATELLITE'])),
             'confidence': Decimal(str(feature['CONFIDENCE'])),
             'frp': Decimal(str(feature['FRP'])),
             'brightness21': Decimal(str(feature['BRIGHTNESS'])),
