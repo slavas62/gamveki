@@ -3,11 +3,8 @@ from django.contrib.gis.db import models
 
 
 class Satellite(models.Model):
-    SELECT_SATTELITE = (
-                        (u'Aqua', u'Aqua'),
-                        (u'Terra', u'Terra'),
-                        )
-    satellite = models.CharField(max_length=5, unique=True, choices=SELECT_SATTELITE)
+    satellite = models.CharField(u'спутник', max_length=5, unique=True)
+    short_satellite_name = models.CharField(u'спутник сокращенно', max_length=1, unique=True)
 
     class Meta:
         verbose_name = u'Спутник'
