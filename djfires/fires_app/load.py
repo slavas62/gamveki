@@ -3,7 +3,19 @@ from django.contrib.gis.gdal import DataSource
 from datetime import datetime
 from decimal import Decimal
 from fires_app.models import Fire, Satellite
+import logging
 
+# create and set logger
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+# file handler
+fh = logging.FileHandler('load_logging.log')
+fh.setLevel(logging.DEBUG)
+# formatter
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+fh.setFormatter(formatter)
+# add the handlers to the logger
+logger.addHandler(fh)
 
 class Importer():
     
@@ -12,16 +24,27 @@ class Importer():
         self.url = url
     
     def load_to_db(self):
-    #1 Open remote ds
         ds_path = ''.join(['/vsizip/vsicurl/', self.url])
-        ds = DataSource(ds_path)
+        logger.info('Start downloading...')
+        try:
+            ds = DataSource(ds_path)
+        except:
+            logger.warning('Downloading failed!')
+            return
+        logger.info('Downloading complete!')    
         layer = ds[0]
+        number_saved_features = 0
+        number_unsaved_features = 0
+        logger.info('Start importing...')
         for feature in layer:
             try:
                 m = self.feature_to_model(feature)
                 m.save()
+                number_saved_features += 1
             except:
-                pass
+                number_unsaved_features += 1
+        long_string = 'Import complete. Number saved features {}. Number unsaved features {}.'
+        logger.info(long_string.format(number_saved_features, number_unsaved_features))
     
     def feature_to_model(self, feature):
         acq_datetime = ''.join([str(feature['ACQ_DATE']), 
