@@ -18,7 +18,6 @@ fh.setFormatter(formatter)
 logger.addHandler(fh)
 
 class Importer():
-    
     def __init__(self, model, url):
         self.model = model
         self.url = url
@@ -35,6 +34,7 @@ class Importer():
         layer = ds[0]
         number_saved_features = 0
         number_unsaved_features = 0
+        number_updated_features = 0
         logger.info('Start importing...')
         for feature in layer:
             try:
@@ -42,9 +42,20 @@ class Importer():
                 m.save()
                 number_saved_features += 1
             except:
-                number_unsaved_features += 1
-        long_string = 'Import complete. Number saved features {}. Number unsaved features {}.'
-        logger.info(long_string.format(number_saved_features, number_unsaved_features))
+                exist_recorder = Fire.objects.get(geometry=m.geometry,date=m.date)
+                if exist_recorder.confidence < m.confidence:
+                    exist_recorder.delete()
+                    m.save()
+                    number_updated_features += 1
+                else:
+                    number_unsaved_features += 1
+        long_string = ('Import complete. ',
+                       'Number saved features {}. ',
+                       'Number unsaved features {}. ',
+                       'Number updated features {}.')
+        logger.info(''.join(long_string).format(number_saved_features,
+                                                number_unsaved_features,
+                                                number_updated_features))
     
     def feature_to_model(self, feature):
         acq_datetime = ''.join([str(feature['ACQ_DATE']), 
