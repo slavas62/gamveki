@@ -9,6 +9,9 @@ class Satellite(models.Model):
     class Meta:
         verbose_name = u'Спутник'
         verbose_name_plural = u'Спутники'
+    
+    def __str__(self):
+        return str(self.satellite)
  
 
 class Fire(models.Model):
@@ -28,3 +31,7 @@ class Fire(models.Model):
         unique_together = ('geometry', 'date')
         verbose_name = u'MODIS данные о пожаре'
         verbose_name_plural = u'MODIS данные о пожарах'
+    
+    def __str__(self):
+        return str(self.date)
+ 

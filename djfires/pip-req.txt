@@ -1,2 +1,3 @@
 Django==1.7.4
 psycopg2==2.6
+django-salmonella==0.6.1
