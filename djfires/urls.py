@@ -9,5 +9,4 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/salmonella/', include('salmonella.urls')),
-    url(r'^fire/', include('fires_app.urls')),
 )
