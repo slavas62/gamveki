@@ -3,3 +3,5 @@ syntax: glob
 .project
 .pydevproject
 djfires/settings_local.py
+.settings
+
