@@ -10,6 +10,9 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+
+import dj_database_url
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -62,15 +65,9 @@ WSGI_APPLICATION = 'djfires.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'fireapp',
-        'USER': 'grias',
-        'PASSWORD': 'rhtdtl,uhbfctu!',
-        'HOST': '192.168.254.111',
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(default='postgres:///'),
 }
 
 # Internationalization

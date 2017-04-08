@@ -1,2 +1,5 @@
 syntax: glob
 *.pyc
+.project
+.pydevproject
+djfires/settings_local.py
