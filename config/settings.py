@@ -23,7 +23,7 @@ ENV_DIR = os.path.join(os.path.dirname(sys.executable), '..')
 SECRET_KEY = '20g6urh^08^fgi%2p-uk+^gp(e%$@80woj^f-t$$=jei@u@bd$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
