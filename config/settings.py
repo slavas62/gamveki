@@ -9,12 +9,12 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
+import os, sys
 
 import dj_database_url
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
+ENV_DIR = os.path.join(os.path.dirname(sys.executable), '..')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -105,6 +105,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(ENV_DIR, 'www', 'static')
 
 LOGGING = {
     'version': 1,
@@ -151,6 +152,6 @@ LOGGING = {
 }
 
 try:
-    from .settings_local import *
+    from config.settings_local2 import *
 except ImportError:
     pass
