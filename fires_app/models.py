@@ -9,6 +9,7 @@ class Satellite(models.Model):
     class Meta:
         verbose_name = u'Спутник'
         verbose_name_plural = u'Спутники'
+        db_table = 'satellite'
     
     def __str__(self):
         return str(self.satellite)
@@ -23,7 +24,7 @@ class Fire(models.Model):
     brightness31 = models.DecimalField(u'температура по каналу 31 (в Кельвинах)', max_digits=4, decimal_places=1)
     scan = models.DecimalField(u'размер пиксела в направлении сканирования', max_digits=2, decimal_places=1)
     track = models.DecimalField(u'размер пиксела в направлении траектории', max_digits=2, decimal_places=1)
-    version = models.DecimalField(u'версия', max_digits=2, decimal_places=1)
+    version = models.CharField(u'версия', max_length=6)
     geometry = models.PointField(srid=4326)
     objects = models.GeoManager()
     
@@ -31,6 +32,7 @@ class Fire(models.Model):
         unique_together = ('geometry', 'date')
         verbose_name = u'MODIS данные о пожаре'
         verbose_name_plural = u'MODIS данные о пожарах'
+        db_table = 'fire'
     
     def __str__(self):
         return str(self.date)
