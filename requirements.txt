@@ -1,5 +1,5 @@
-Django==1.7.4
+Django==1.11
 psycopg2==2.6
-django-salmonella==0.6.1
+django-salmonella==1.0
 dj-database-url==0.4.2
 GDAL==1.9.0
