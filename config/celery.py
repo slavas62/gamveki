@@ -19,8 +19,12 @@ app.autodiscover_tasks()
 
 
 app.conf.CELERYBEAT_SCHEDULE = {
-    'coverage_update': {
-        'task': 'fires_app.tasks.fire_update_task',
+    'update-modis': {
+        'task': 'fires_app.tasks.modis_update_task',
+        'schedule': crontab(minute=0, hour='*/4'),
+    },
+    'update-viirs': {
+        'task': 'fires_app.tasks.viirs_update_task',
         'schedule': crontab(minute=0, hour='*/4'),
     },
 }

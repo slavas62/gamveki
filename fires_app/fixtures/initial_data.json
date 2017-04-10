@@ -14,5 +14,13 @@
   },
   "model": "fires_app.satellite",
   "pk": 2
+},
+{
+  "fields": {
+    "satellite": "SNPP",
+    "short_satellite_name": "N"
+  },
+  "model": "fires_app.satellite",
+  "pk": 3
 }
 ]
