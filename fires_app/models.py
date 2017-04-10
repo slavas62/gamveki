@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib.gis.db import models
+from solo.models import SingletonModel
 
 
 class Satellite(models.Model):
@@ -36,4 +37,13 @@ class Fire(models.Model):
     
     def __str__(self):
         return str(self.date)
- 
+    
+
+class SiteConfiguration(SingletonModel):
+    url_modis = models.URLField(u'URL MODIS', default='https://firms.modaps.eosdis.nasa.gov/active_fire/c6/shapes/zips/MODIS_C6_Global_24h.zip')
+
+    def __unicode__(self):
+        return u'Настройки сайта'
+
+    class Meta:
+        verbose_name = 'Настройки сайта'
