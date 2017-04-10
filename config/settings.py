@@ -37,11 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #gis
     'django.contrib.gis',
-    #third party
-    'salmonella',
-    #my apps
     'fires_app',
 )
 
