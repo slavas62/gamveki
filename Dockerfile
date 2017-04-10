@@ -32,6 +32,10 @@ RUN cp ./docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf && \
 
 RUN /env/bin/python /app/manage.py collectstatic --noinput
 
+RUN mkdir /data
+
+VOLUME /data
+
 EXPOSE 80
 
 # set default locale for python

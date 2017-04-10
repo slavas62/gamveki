@@ -6,3 +6,4 @@ config/settings_local.py
 .settings
 
 .DS_Store
+celerybeat-schedule
