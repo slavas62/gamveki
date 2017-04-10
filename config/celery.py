@@ -19,6 +19,7 @@ app.autodiscover_tasks()
 
 
 app.conf.CELERYBEAT_SCHEDULE = {
+    # 00:00 4:00 8:00 12:00 16:00 20:00 24:00
     'update-modis': {
         'task': 'fires_app.tasks.modis_update_task',
         'schedule': crontab(minute=0, hour='*/4'),
