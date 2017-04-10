@@ -1,5 +1,4 @@
-from django.core.management.base import BaseCommand, CommandError
-from fires_app.load import Importer
+from django.core.management.base import BaseCommand
 from fires_app.loader import DBLoader
 
 class Command(BaseCommand):

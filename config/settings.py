@@ -100,6 +100,9 @@ USE_L10N = True
 
 USE_TZ = False
 
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
+if not CELERY_BROKER_URL:
+    CELERY_BROKER_URL = 'redis://localhost:6379/0'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
@@ -152,6 +155,6 @@ LOGGING = {
 }
 
 try:
-    from config.settings_local2 import *
+    from config.settings_local import *
 except ImportError:
     pass
