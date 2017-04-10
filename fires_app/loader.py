@@ -13,6 +13,7 @@ class DBLoader(object):
     def __init__(self):
         self.logger = logging.getLogger(self.LOGGER_NAME)
         self.logger.setLevel(logging.INFO)
+        self.logger.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
     
     def fire_from_feature(self, feature):
         acq_datetime = ''.join([str(feature['ACQ_DATE']), str(feature['ACQ_TIME'])])
@@ -61,6 +62,7 @@ class DBLoader(object):
                 continue
             
             fire.save()
+        self.logger.info('Update feature done.')
     
 
     
@@ -76,6 +78,7 @@ class DBLoader(object):
         self.logger.info('Start downloading...')
         try:
             ds = DataSource(''.join(['/vsizip/vsicurl/', url]))
+            self.logger.info('Download done.')
         except:
             self.logger.warning('Downloading failed %s'%url)
             return
