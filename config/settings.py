@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.gis',
     'solo',
     'fires_app',
+    'django_celery_beat',
 )
 
 MIDDLEWARE_CLASSES = (

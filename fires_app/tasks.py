@@ -18,4 +18,4 @@ def viirs_update_task():
     try:
         return ViirsDBLoader().update(SiteConfiguration.get_solo().url_viirs)
     except Exception as e:
-        logger.error('%s updater error: %s %s' % (ViirsDBLoader, e))
+        logger.error('%s updater error: %s' % (ViirsDBLoader, e))
