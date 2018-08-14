@@ -27,6 +27,7 @@ class Migration(migrations.Migration):
                 ('scan', models.DecimalField(decimal_places=1, max_digits=2, verbose_name='\u0440\u0430\u0437\u043c\u0435\u0440 \u043f\u0438\u043a\u0441\u0435\u043b\u0430 \u0432 \u043d\u0430\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0438 \u0441\u043a\u0430\u043d\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u044f')),
                 ('track', models.DecimalField(decimal_places=1, max_digits=2, verbose_name='\u0440\u0430\u0437\u043c\u0435\u0440 \u043f\u0438\u043a\u0441\u0435\u043b\u0430 \u0432 \u043d\u0430\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0438 \u0442\u0440\u0430\u0435\u043a\u0442\u043e\u0440\u0438\u0438')),
                 ('version', models.CharField(max_length=6, verbose_name='\u0432\u0435\u0440\u0441\u0438\u044f')),
+                ('night', models.BooleanField(default=0, verbose_name='\u041f\u0440\u0438\u0437\u043d\u0430\u043a \u043d\u043e\u0447\u043d\u043e\u0433\u043e \u0441\u043d\u0438\u043c\u043a\u0430')),
                 ('geometry', django.contrib.gis.db.models.fields.PointField(srid=4326)),
             ],
             options={
