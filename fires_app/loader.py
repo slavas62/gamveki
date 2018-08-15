@@ -54,8 +54,8 @@ class DBLoader(object):
         try:
             ds = DataSource(''.join(['/vsizip/vsicurl/', url]))
             self.logger.info('Download done.')
-        except:
-            self.logger.error('Downloading failed %s'%url)
+        except Exception as e:
+            self.logger.error('Downloading failed %s. %s' % (url, str(e)))
             return
         layer = ds[0]
         self.update_features(layer, filter_geometry)
