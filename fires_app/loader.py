@@ -130,10 +130,10 @@ class ViirsDBLoader(DBLoader):
         try:
             fire = FireViirs.objects.get(geometry=data['geometry'], date=data['date'])
 #            if fire.confidence < data['confidence']:
-            if fire.id:
+            if fire:
 #                fire.update(**data)
-                self.logger.info('Fire Data.Sat %s date %s confidence %s'%(data['satellite'], data['date'], data['confidence']))
-                self.logger.info('Fire DB.Id %s sat %s date %s confidence %s'%(fire.id, fire.satellite, fire.date, fire.confidence))
+                self.logger.info('Fire Data. Sat %s date %s confidence %s fpr %s ti4 %s ti5 %s scan %s track %s'%(data['satellite'], data['date'], data['confidence'], data['fpr'], data['brightness_ti4'], data['brightness_ti5'], data['scan'], data['track']))
+                self.logger.info('Fire Base. Sat %s date %s confidence %s fpr %s ti4 %s ti5 %s scan %s track %s Id %s'%(fire.satellite, fire.date, fire.confidence, fire.fpr, fire.brightness_ti4, fire.brightness_ti5, fire.scan, fire.track, fire.id))
                 return fire, True
         except FireViirs.DoesNotExist:
             pass
