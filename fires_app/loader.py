@@ -129,7 +129,8 @@ class ViirsDBLoader(DBLoader):
         }
         try:
             fire = FireViirs.objects.get(geometry=data['geometry'], date=data['date'])
-            if fire.confidence < data['confidence']:
+#            if fire.confidence < data['confidence']:
+            if fire:
                 fire.update(**data)
                 self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.id, data['confidence']))
                 return fire, True
