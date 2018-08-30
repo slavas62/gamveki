@@ -87,9 +87,10 @@ class ModisDBLoader(DBLoader):
         
         try:
             fire = FireModis.objects.get(geometry=data['geometry'], date=data['date'])
-            if fire.confidence < data['confidence']:
-                fire.update(**data)
-                self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.id, data['confidence']))
+#            if fire.confidence < data['confidence']:
+            if fire:
+#                fire.update(**data)
+#                self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.id, data['confidence']))
                 return fire, True
         except FireModis.DoesNotExist:
             pass
