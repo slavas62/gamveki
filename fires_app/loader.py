@@ -21,6 +21,7 @@ class DBLoader(object):
     @transaction.atomic
     def update_features(self, features, filter_geometry=None):
         self.logger.info('Update feature...')
+        i = 0
         for feat in features:
             if feat.geom.geom_type != 'Point':
                 self.logger.warning('Invalid geometry type: %s' % feat.geom.wkt)
@@ -36,6 +37,8 @@ class DBLoader(object):
             if (filter_geometry and not fire.geometry.intersects(filter_geometry)):
                 continue
             if not created:
+                i += 1
+                self.logger.info('Feature exist: %s' % i)
                 continue
             
             fire.save()
@@ -91,11 +94,12 @@ class ModisDBLoader(DBLoader):
             if fire:
 #                fire.update(**data)
 #                self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.id, data['confidence']))
-                return fire, True
+#                return fire, True
+                return fire, False
         except FireModis.DoesNotExist:
             pass
 
-        return FireModis.objects.get_or_create(**data)
+        return FireModis.objects.get_or_create(**data), True
 
 class ViirsDBLoader(DBLoader):
     
@@ -135,8 +139,9 @@ class ViirsDBLoader(DBLoader):
 #                fire.update(**data)
 #                self.logger.info('Fire Data. Sat %s date %s confidence %s frp %s ti4 %s ti5 %s scan %s track %s'%(data['satellite'], data['date'], data['confidence'], data['frp'], data['brightness_ti4'], data['brightness_ti5'], data['scan'], data['track']))
 #                self.logger.info('Fire Base. Sat %s date %s confidence %s frp %s ti4 %s ti5 %s scan %s track %s Id %s'%(fire.satellite, fire.date, fire.confidence, fire.frp, fire.brightness_ti4, fire.brightness_ti5, fire.scan, fire.track, fire.id))
-                return fire, True
+#                return fire, True
+                return fire, False
         except FireViirs.DoesNotExist:
             pass
 
-        return FireViirs.objects.get_or_create(**data)
+        return FireViirs.objects.get_or_create(**data), True
