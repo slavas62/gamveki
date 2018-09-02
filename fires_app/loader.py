@@ -37,12 +37,11 @@ class DBLoader(object):
             if (filter_geometry and not fire.geometry.intersects(filter_geometry)):
                 continue
             if not created:
-                i += 1
-                self.logger.info('Feature exist: %s' % i)
                 continue
             
+            i += 1
 #            fire.save()
-        self.logger.info('Update feature done.')
+        self.logger.info('Update feature done. Count: %s' % i)
     
     def update(self, url, filter_geometry=None):
         if filter_geometry:
