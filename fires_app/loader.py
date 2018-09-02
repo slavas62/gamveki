@@ -41,7 +41,7 @@ class DBLoader(object):
                 self.logger.info('Feature exist: %s' % i)
                 continue
             
-            fire.save()
+#            fire.save()
         self.logger.info('Update feature done.')
     
     def update(self, url, filter_geometry=None):
@@ -99,7 +99,7 @@ class ModisDBLoader(DBLoader):
         except FireModis.DoesNotExist:
             pass
 
-        return FireModis.objects.get_or_create(**data), True
+        return FireModis.objects.get_or_create(**data)
 
 class ViirsDBLoader(DBLoader):
     
@@ -144,4 +144,4 @@ class ViirsDBLoader(DBLoader):
         except FireViirs.DoesNotExist:
             pass
 
-        return FireViirs.objects.get_or_create(**data), True
+        return FireViirs.objects.get_or_create(**data)
