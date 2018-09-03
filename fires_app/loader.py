@@ -94,7 +94,7 @@ class ModisDBLoader(DBLoader):
 #            if fire.confidence < data['confidence']:
             if fire:
 #                fire.update(**data)
-#                self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.id, data['confidence']))
+                self.logger.info('MODIS date DB %s date Feature %s'%(fire.date, data['date']))
 #                return fire, True
                 return fire, False
         except FireModis.DoesNotExist:
@@ -140,6 +140,7 @@ class ViirsDBLoader(DBLoader):
 #                fire.update(**data)
 #                self.logger.info('Fire Data. Sat %s date %s confidence %s frp %s ti4 %s ti5 %s scan %s track %s'%(data['satellite'], data['date'], data['confidence'], data['frp'], data['brightness_ti4'], data['brightness_ti5'], data['scan'], data['track']))
 #                self.logger.info('Fire Base. Sat %s date %s confidence %s frp %s ti4 %s ti5 %s scan %s track %s Id %s'%(fire.satellite, fire.date, fire.confidence, fire.frp, fire.brightness_ti4, fire.brightness_ti5, fire.scan, fire.track, fire.id))
+                self.logger.info('VIIRS date DB %s date Feature %s'%(fire.date, data['date']))
 #                return fire, True
                 return fire, False
         except FireViirs.DoesNotExist:
