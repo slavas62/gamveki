@@ -22,6 +22,7 @@ class DBLoader(object):
     def update_features(self, features, filter_geometry=None):
         self.logger.info('Update feature...')
         i = 0
+        j = 0
         for feat in features:
             if feat.geom.geom_type != 'Point':
                 self.logger.warning('Invalid geometry type: %s' % feat.geom.wkt)
@@ -34,14 +35,15 @@ class DBLoader(object):
             except ValueError as e:
                 self.logger.warning('Value error: %s' % str(e))
                 continue
-            if (filter_geometry and not fire.geometry.intersects(filter_geometry)):
-                continue
+#            if (filter_geometry and not fire.geometry.intersects(filter_geometry)):
+#                continue
             if not created:
+                j += 1 
                 continue
             
             i += 1
 #            fire.save()
-        self.logger.info('Update feature done. Count: %s' % i)
+        self.logger.info('Update feature done. Count: %s - %s ' % (i, j))
     
     def update(self, url, filter_geometry=None):
         if filter_geometry:
