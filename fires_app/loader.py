@@ -34,7 +34,7 @@ class DBLoader(object):
                     j += 1
 
             else:
-                self.logger.info('Not Point: %s ' % feat.geom.geom_type)
+                self.logger.info('No Point: %s ' % feat.geom.geom_type)
                 j += 1
                 
 
@@ -77,19 +77,6 @@ class ModisDBLoader(DBLoader):
             'geometry': feature.geom.geos
         }
         
-#        try:
-#            fire = FireModis.objects.get(geometry=data['geometry'], date=data['date'])
-##            if fire.confidence < data['confidence']:
-#            if fire:
-##                fire.update(**data)
-##                self.logger.info('MODIS date DB %s date Feature %s'%(fire.date, data['date']))
-##                return fire, True
-#                return fire, False
-#        except FireModis.DoesNotExist:
-#            pass
-#
-#        return FireModis.objects.get_or_create(**data)
-
         fire = FireModis.objects.get(geometry=data['geometry'], date=data['date'])
         if fire:
             return fire, False
@@ -127,20 +114,6 @@ class ViirsDBLoader(DBLoader):
             'night': bool(True if feature['DAYNIGHT']=='N' else False),
             'geometry': feature.geom.geos
         }
-#        try:
-#            fire = FireViirs.objects.get(geometry=data['geometry'], date=data['date'])
-##            if fire.confidence < data['confidence']:
-#            if fire:
-##                fire.update(**data)
-##                self.logger.info('Fire Data. Sat %s date %s confidence %s frp %s ti4 %s ti5 %s scan %s track %s'%(data['satellite'], data['date'], data['confidence'], data['frp'], data['brightness_ti4'], data['brightness_ti5'], data['scan'], data['track']))
-##                self.logger.info('Fire Base. Sat %s date %s confidence %s frp %s ti4 %s ti5 %s scan %s track %s Id %s'%(fire.satellite, fire.date, fire.confidence, fire.frp, fire.brightness_ti4, fire.brightness_ti5, fire.scan, fire.track, fire.id))
-##                self.logger.info('VIIRS date DB %s date Feature %s'%(fire.date, data['date']))
-##                return fire, True
-#                return fire, False
-#        except FireViirs.DoesNotExist:
-#            pass
-
-#        return FireViirs.objects.get_or_create(**data)
 
         fire = FireViirs.objects.get(geometry=data['geometry'], date=data['date'])
         if fire:
