@@ -21,24 +21,25 @@ class DBLoader(object):
     @transaction.atomic
     def update_features(self, features, filter_geometry=None):
         self.logger.info('Update feature...')
-        i = 0
-        j = 0
-        
         for feat in features:
-            if feat.geom.geom_type == 'Point' or feat.geom.geom_type == 'MultiPoint':
+            if feat.geom.geom_type != 'Point':
+                self.logger.warning('Invalid geometry type: %s' % feat.geom.wkt)
+                continue
+            try:
                 fire, created = self.fire_from_feature(feat)
-                
-                if created:
-                    i += 1 
-                else:
-                    j += 1
-
-            else:
-                self.logger.info('No Point: %s ' % feat.geom.geom_type)
-                j += 1
-                
-
-        self.logger.info('Update feature done. Count: %s - %s ' % (i, j))
+            except TypeError as e:
+                self.logger.warning('Data error: %s' % str(e))
+                continue
+            except ValueError as e:
+                self.logger.warning('Value error: %s' % str(e))
+                continue
+            if (filter_geometry and not fire.geometry.intersects(filter_geometry)):
+                continue
+            if not created:
+                continue
+            
+            fire.save()
+        self.logger.info('Update feature done.')
     
     def update(self, url, filter_geometry=None):
         if filter_geometry:
@@ -48,7 +49,7 @@ class DBLoader(object):
                 filter_geometry = filter_geometry.geos
             else:
                 raise TypeError('invalid filter_geometry type')
-
+            
         self.logger.info('Start downloading...')
         try:
             ds = DataSource(''.join(['/vsizip/vsicurl/', url]))
@@ -56,7 +57,6 @@ class DBLoader(object):
         except Exception as e:
             self.logger.error('Downloading failed %s. %s' % (url, str(e)))
             return
-
         layer = ds[0]
         self.update_features(layer, filter_geometry)
     
@@ -81,15 +81,19 @@ class ModisDBLoader(DBLoader):
             'scan': Decimal(str(feature['SCAN'])),
             'track': Decimal(str(feature['TRACK'])),
             'version': str(feature['VERSION']),
-            'night': bool(True if feature['DAYNIGHT']=='N' else False),
             'geometry': feature.geom.geos
         }
         
-        fire = FireModis.objects.get(geometry=data['geometry'], date=data['date'])
-        if fire:
-            return fire, False
-        else:
-            return FireModis.objects.get_or_create(**data), True
+        try:
+            fire = FireModis.objects.get(geometry=data['geometry'], date=data['date'])
+            if fire.confidence < data['confidence']:
+                fire.update(**data)
+                self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.id, data['confidence']))
+                return fire, True
+        except FireModis.DoesNotExist:
+            pass
+
+        return FireModis.objects.get_or_create(**data)
 
 class ViirsDBLoader(DBLoader):
     
@@ -122,9 +126,13 @@ class ViirsDBLoader(DBLoader):
             'night': bool(True if feature['DAYNIGHT']=='N' else False),
             'geometry': feature.geom.geos
         }
+        try:
+            fire = FireViirs.objects.get(geometry=data['geometry'], date=data['date'])
+            if fire.confidence < data['confidence']:
+                fire.update(**data)
+                self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.id, data['confidence']))
+                return fire, True
+        except FireViirs.DoesNotExist:
+            pass
 
-        fire = FireViirs.objects.get(geometry=data['geometry'], date=data['date'])
-        if fire:
-            return fire, False
-        else:
-            return FireViirs.objects.get_or_create(**data), True
+        return FireViirs.objects.get_or_create(**data)

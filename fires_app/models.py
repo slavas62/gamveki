@@ -26,7 +26,6 @@ class FireModis(models.Model):
     scan = models.DecimalField(u'размер пиксела в направлении сканирования', max_digits=2, decimal_places=1)
     track = models.DecimalField(u'размер пиксела в направлении траектории', max_digits=2, decimal_places=1)
     version = models.CharField(u'версия', max_length=6)
-    night = models.BooleanField(u'Признак ночного снимка', default=0)
     geometry = models.PointField(srid=4326)
     objects = models.GeoManager()
     
@@ -40,9 +39,9 @@ class FireModis(models.Model):
         return str(self.date)
 
 class FireViirs(models.Model):
-    date = models.DateTimeField(u'дата и время (UTC) получения данных о VIIRS')
+    date = models.DateTimeField(u'дата и время (UTC) получения данных о MODIS')
     satellite = models.ForeignKey(Satellite)
-    confidence = models.DecimalField(u'достоверность (0%, 50%, 100%)', max_digits=3, decimal_places=0)
+    confidence = models.DecimalField(u'достоверность (0-100%)', max_digits=3, decimal_places=0)
     frp = models.DecimalField(u'мощность пожара', max_digits=5, decimal_places=1)
     brightness_ti4 = models.DecimalField(u'температура по каналу I-4 (в Кельвинах)', max_digits=4, decimal_places=1)
     brightness_ti5 = models.DecimalField(u'температура по каналу I-5 (в Кельвинах)', max_digits=4, decimal_places=1)
