@@ -41,6 +41,14 @@ class DBLoader(object):
         self.logger.info('Update feature done. Count: %s - %s ' % (i, j))
     
     def update(self, url, filter_geometry=None):
+        if filter_geometry:
+            if isinstance(filter_geometry, str):
+                filter_geometry = GEOSGeometry(filter_geometry)
+            elif isinstance(filter_geometry, OGRGeometry):
+                filter_geometry = filter_geometry.geos
+            else:
+                raise TypeError('invalid filter_geometry type')
+
         self.logger.info('Start downloading...')
         try:
             ds = DataSource(''.join(['/vsizip/vsicurl/', url]))
