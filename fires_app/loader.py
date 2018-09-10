@@ -139,5 +139,6 @@ class ViirsDBLoader(DBLoader):
             
             try: 
                 return FireViirs.objects.get_or_create(**data)
-            except DatabaseError:
+            except DatabaseError as e:
+                self.logger.error('%s database error: %s' % (FireViirs, e))
                 return fire, False
