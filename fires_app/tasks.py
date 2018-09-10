@@ -13,9 +13,9 @@ def modis_update_task():
     except Exception as e:
         logger.error('%s updater error: %s' % (ModisDBLoader, e))
 
-@shared_task
-def viirs_update_task():
-    try:
-        return ViirsDBLoader().update(SiteConfiguration.get_solo().url_viirs)
-    except Exception as e:
-        logger.error('%s updater error: %s' % (ViirsDBLoader, e))
+#@shared_task
+#def viirs_update_task():
+#    try:
+#        return ViirsDBLoader().update(SiteConfiguration.get_solo().url_viirs)
+#    except Exception as e:
+#        logger.error('%s updater error: %s' % (ViirsDBLoader, e))
