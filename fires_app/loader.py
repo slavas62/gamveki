@@ -26,7 +26,8 @@ class DBLoader(object):
                 self.logger.warning('Invalid geometry type: %s' % feat.geom.wkt)
                 continue
             try:
-                fire, created = self.fire_from_feature(feat)
+#                fire, created = self.fire_from_feature(feat)
+                self.fire_from_feature(feat)
             except TypeError as e:
                 self.logger.warning('Data error: %s' % str(e))
                 continue
@@ -35,10 +36,10 @@ class DBLoader(object):
                 continue
             if (filter_geometry and not fire.geometry.intersects(filter_geometry)):
                 continue
-            if not created:
-                continue
+#            if not created:
+#                continue
             
-            fire.save()
+#            fire.save()
         self.logger.info('Update feature done.')
     
     def update(self, url, filter_geometry=None):
@@ -88,6 +89,7 @@ class ModisDBLoader(DBLoader):
             fire = FireModis.objects.get(geometry=data['geometry'], date=data['date'])
             if fire.confidence < data['confidence']:
                 fire.update(**data)
+                fire.save()
                 self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.id, data['confidence']))
                 return fire, True
         except FireModis.DoesNotExist:
@@ -105,11 +107,11 @@ class ViirsDBLoader(DBLoader):
         
     def get_confidence(self, confidence):
         if confidence == 'low':
-            return 0.0
+            return 0
         if confidence == 'nominal':
-            return 50.0
+            return 50
         if confidence == 'high':
-            return 100.0
+            return 100
     
     def fire_from_feature(self, feature):
         acq_datetime = ''.join([str(feature['ACQ_DATE']), str(feature['ACQ_TIME'])])
@@ -130,9 +132,12 @@ class ViirsDBLoader(DBLoader):
             fire = FireViirs.objects.get(geometry=data['geometry'], date=data['date'])
             if fire.confidence < data['confidence']:
                 fire.update(**data)
+                fire.save()
                 self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.id, data['confidence']))
                 return fire, True
         except FireViirs.DoesNotExist:
-            pass
-
-        return FireViirs.objects.get_or_create(**data)
+            
+            try: 
+                return FireViirs.objects.get_or_create(**data)
+            except DatabaseError:
+                return fire, False
