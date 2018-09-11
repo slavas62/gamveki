@@ -99,7 +99,6 @@ USE_L10N = True
 USE_TZ = False
 
 CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
-CELERY_IGNORE_RESULT = True
 if not CELERY_BROKER_URL:
     CELERY_BROKER_URL = 'redis://localhost:6379/0'
 
