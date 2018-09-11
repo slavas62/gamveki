@@ -23,7 +23,7 @@ app.conf.beat_schedule = {
     # 00:00 4:00 8:00 12:00 16:00 20:00 24:00
     'update-modis': {
         'task': 'fires_app.tasks.modis_update_task',
-        'schedule': crontab(minute=0, hour='*/4'),
+        'schedule': crontab(minute=0, hour='*/1'),
     },
     'update-viirs': {
         'task': 'fires_app.tasks.viirs_update_task',
