@@ -26,6 +26,7 @@ class FireModis(models.Model):
     scan = models.DecimalField(u'размер пиксела в направлении сканирования', max_digits=2, decimal_places=1)
     track = models.DecimalField(u'размер пиксела в направлении траектории', max_digits=2, decimal_places=1)
     version = models.CharField(u'версия', max_length=6)
+    night = models.BooleanField(u'Признак ночного снимка', default=0)
     geometry = models.PointField(srid=4326)
     objects = models.GeoManager()
     
