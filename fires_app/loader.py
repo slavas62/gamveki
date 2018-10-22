@@ -82,6 +82,7 @@ class ModisDBLoader(DBLoader):
             'scan': Decimal(str(feature['SCAN'])),
             'track': Decimal(str(feature['TRACK'])),
             'version': str(feature['VERSION']),
+            'night': bool(True if feature['DAYNIGHT']=='N' else False),
             'geometry': feature.geom.geos
         }
         
