@@ -4,7 +4,6 @@ MAINTAINER pipetc@gmail.com
 RUN apt-get update && apt-get install -y \
   supervisor \
   curl \
-  mercurial \
   git \
   gcc \
   g++ \
