@@ -4,3 +4,7 @@
 config/__init__\.pyc
 
 config/celery\.pyc
+
+\.pydevproject
+
+\.settings/org\.eclipse\.core\.resources\.prefs
