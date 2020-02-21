@@ -2,7 +2,7 @@ uwsgi
 Django
 psycopg2
 dj-database-url
-GDAL
+GDAL==1.9.0
 celery
 redis
 django-solo
