@@ -27,3 +27,4 @@ settings_local.py
 /.metadata/version.ini
 /fires_localhost.sh
 /remove-unused.sh
+/firms_localhost.sh
