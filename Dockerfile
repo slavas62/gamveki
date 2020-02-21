@@ -29,7 +29,7 @@ RUN cp ./docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf && \
     CPLUS_INCLUDE_PATH=/usr/include/gdal C_INCLUDE_PATH=/usr/include/gdal \
     /env/bin/pip install -r requirements.txt
 
-# RUN /env/bin/python /app/manage.py collectstatic --noinput
+RUN /env/bin/python /app/manage.py collectstatic --noinput
 
 RUN mkdir /data
 
