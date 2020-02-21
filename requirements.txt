@@ -8,3 +8,4 @@ django-solo==1.1.2
 flower==0.9.1
 django-celery-beat==1.0.1
 zipp
+uwsgi

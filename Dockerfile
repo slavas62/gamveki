@@ -1,5 +1,5 @@
 FROM nginx:1.11.10
-MAINTAINER pipetc@gmail.com
+MAINTAINER slavas62@gmail.com
 
 RUN apt-get update && apt-get install -y \
   supervisor \
@@ -21,8 +21,6 @@ WORKDIR ${work_dir}
 ADD . .
 
 RUN virtualenv /env
-
-RUN /env/bin/pip install uwsgi
 
 RUN cp ./docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf && \
     cp ./docker/nginx.conf /etc/nginx/conf.d/default.conf && \
