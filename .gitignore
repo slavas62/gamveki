@@ -26,3 +26,4 @@ settings_local.py
 /.metadata/.plugins/org.eclipse.ui.workbench/workingsets.xml
 /.metadata/version.ini
 /fires_localhost.sh
+/remove-unused.sh
