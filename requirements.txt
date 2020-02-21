@@ -6,6 +6,6 @@ GDAL
 celery
 redis
 django-solo
-flower
+flower==0.9.1
 django-celery-beat
 zipp
