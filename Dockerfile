@@ -11,7 +11,6 @@ RUN apt-get update && apt-get install -y \
   python-virtualenv \
   libgdal-dev \
   libpq-dev \
-  zipp \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 
