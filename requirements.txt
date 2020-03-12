@@ -7,5 +7,5 @@ celery
 redis
 django-solo
 flower==0.9.1
-django-celery-beat
+django-celery-beat==1.0.1
 zipp

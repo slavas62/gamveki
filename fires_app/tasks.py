@@ -8,6 +8,7 @@ logger = logging.getLogger('update.main_updater')
 
 @shared_task
 def modis_update_task():
+    print('------------ MODIS --------------')
     try:
         return ModisDBLoader().update(SiteConfiguration.get_solo().url_modis)
     except Exception as e:
@@ -15,6 +16,7 @@ def modis_update_task():
 
 @shared_task
 def viirs_update_task():
+    print('------------ VIIRS --------------')
     try:
         return ViirsDBLoader().update(SiteConfiguration.get_solo().url_viirs)
     except Exception as e:
