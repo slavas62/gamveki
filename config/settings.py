@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 Django settings for config project.
 
@@ -80,7 +82,6 @@ TEMPLATES = [
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
-
 DATABASES = {
     'default': dj_database_url.config(default='postgres:///'),
 }
@@ -101,6 +102,12 @@ USE_TZ = False
 CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
 if not CELERY_BROKER_URL:
     CELERY_BROKER_URL = 'redis://localhost:6379/0'
+
+# Регистрируем задачи приложения
+CELERY_IMPORTS = [
+    "fires_app.tasks"
+]
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/

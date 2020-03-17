@@ -6,7 +6,7 @@ from celery.schedules import crontab
 # set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 
-app = Celery()
+app = Celery('fires_app')
 
 # Using a string here means the worker don't have to serialize
 # the configuration object to child processes.
@@ -15,7 +15,7 @@ app = Celery()
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
 # Load task modules from all registered Django app configs.
-app.autodiscover_tasks()
+# app.autodiscover_tasks()
 
 app.conf.beat_scheduler = 'django_celery_beat.schedulers.DatabaseScheduler'
 
