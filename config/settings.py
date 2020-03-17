@@ -108,6 +108,11 @@ CELERY_IMPORTS = [
     "fires_app.tasks"
 ]
 
+CELERY_TASK_ROUTES = {
+   'fires_app.tasks.modis_update_task': {'queue': 'fires', },
+   'fires_app.tasks.viirs_update_task': {'queue': 'fires', },
+}
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
