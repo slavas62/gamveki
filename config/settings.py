@@ -90,15 +90,13 @@ DATABASES = {
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
 LANGUAGE_CODE = 'ru-RU'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = False
 
+
+# Подключаем брокера
 CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
 if not CELERY_BROKER_URL:
     CELERY_BROKER_URL = 'redis://localhost:6379/0'
@@ -108,6 +106,7 @@ CELERY_IMPORTS = [
     "fires_app.tasks"
 ]
 
+# Определяем очередь для задач
 CELERY_TASK_ROUTES = {
    'fires_app.tasks.modis_update_task': {'queue': 'fires', },
    'fires_app.tasks.viirs_update_task': {'queue': 'fires', },
