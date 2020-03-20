@@ -15,7 +15,7 @@ app = Celery('fires_app')
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
 # Load task modules from all registered Django app configs.
-# app.autodiscover_tasks()
+app.autodiscover_tasks()
 
 app.conf.beat_scheduler = 'django_celery_beat.schedulers.DatabaseScheduler'
 
@@ -23,11 +23,11 @@ app.conf.beat_schedule = {
     # 00:00 4:00 8:00 12:00 16:00 20:00 24:00
     'update-modis': {
         'task': 'fires_app.tasks.modis_update_task',
-        'schedule': crontab(minute=0, hour='2,6,10,14,18,22'),
+        'schedule': crontab(minute=0, hour='0,4,8,12,16,20'),
     },
     'update-viirs': {
         'task': 'fires_app.tasks.viirs_update_task',
-        'schedule': crontab(minute=0, hour='0,4,8,12,16,20'),
+        'schedule': crontab(minute=0, hour='2,6,10,14,18,22'),
     },
 }
 app.conf.timezone = 'Europe/Moscow'

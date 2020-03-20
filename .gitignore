@@ -28,3 +28,4 @@ settings_local.py
 /fires_localhost.sh
 /remove-unused.sh
 /firms_localhost.sh
+/firms_localdocker.sh
