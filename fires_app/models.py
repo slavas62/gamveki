@@ -65,7 +65,7 @@ class FireViirs(models.Model):
 
 class SiteConfiguration(SingletonModel):
     url_modis = models.URLField(u'URL MODIS', default='https://firms.modaps.eosdis.nasa.gov/active_fire/c6/shapes/zips/MODIS_C6_Global_24h.zip')
-    url_viirs = models.URLField(u'URL MODIS', default='https://firms.modaps.eosdis.nasa.gov/active_fire/viirs/shapes/zips/VNP14IMGTDL_NRT_Global_24h.zip')
+    url_viirs = models.URLField(u'URL VIIRS', default='https://firms.modaps.eosdis.nasa.gov/active_fire/viirs/shapes/zips/VNP14IMGTDL_NRT_Global_24h.zip')
 
     def __unicode__(self):
         return u'Настройки сайта'
