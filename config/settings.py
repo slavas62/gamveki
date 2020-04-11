@@ -102,9 +102,9 @@ if not CELERY_BROKER_URL:
     CELERY_BROKER_URL = 'redis://localhost:6379/1'
 
 # Регистрируем задачи приложения
-CELERY_IMPORTS = [
-    "fires_app.tasks"
-]
+# CELERY_IMPORTS = [
+#     "fires_app.tasks"
+# ]
 
 # Определяем очередь для задач
 #CELERY_TASK_ROUTES = {
