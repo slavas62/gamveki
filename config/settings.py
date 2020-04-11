@@ -99,7 +99,7 @@ USE_TZ = False
 # Подключаем брокера
 CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL')
 if not CELERY_BROKER_URL:
-    CELERY_BROKER_URL = 'redis://localhost:6379/0'
+    CELERY_BROKER_URL = 'redis://localhost:6379/1'
 
 # Регистрируем задачи приложения
 CELERY_IMPORTS = [
