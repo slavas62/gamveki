@@ -2,10 +2,10 @@ uwsgi
 Django
 psycopg2
 dj-database-url
-GDAL==1.9.0
 celery
 redis
 django-solo
 flower==0.9.1
 django-celery-beat==1.6.0
 zipp
+GDAL==1.9.0
