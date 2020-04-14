@@ -53,8 +53,8 @@ class DBLoader(object):
             
         self.logger.info('Start downloading...')
         try:
-            ds = DataSource(''.join(['/vsizip//vsicurl/', url, '?r=', str(random.randint(0,10000))]))
-            self.logger.info('Download done: %s' % (''.join(['/vsizip//vsicurl/', url, '?r=', str(random.randint(0,10000))])))
+            ds = DataSource(''.join(['/vsizip//vsicurl/', url]))
+            self.logger.info('Download done: %s' % (''.join(['/vsizip//vsicurl/', url])))
         except Exception as e:
             self.logger.error('Downloading failed %s. %s' % (url, str(e)))
             return
@@ -94,9 +94,14 @@ class ModisDBLoader(DBLoader):
                 self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.id, data['confidence']))
                 return fire, True
         except FireModis.DoesNotExist:
-            pass
 
-        return FireModis.objects.get_or_create(**data)
+            try: 
+                self.logger.info('Add fire Modis: %s %s' % (fire.id, data['date']))
+                return FireModis.objects.get_or_create(**data)
+            except DatabaseError as e:
+                self.logger.error('%s database error: %s' % (FireModis, e))
+                return fire, False
+
 
 class ViirsDBLoader(DBLoader):
     
@@ -139,6 +144,7 @@ class ViirsDBLoader(DBLoader):
         except FireViirs.DoesNotExist:
             
             try: 
+                self.logger.info('Add fire Viirs: %s %s' % (fire.id, data['date']))
                 return FireViirs.objects.get_or_create(**data)
             except DatabaseError as e:
                 self.logger.error('%s database error: %s' % (FireViirs, e))
