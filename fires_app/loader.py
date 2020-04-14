@@ -5,7 +5,7 @@ from fires_app.models import FireModis, FireViirs, Satellite
 from django.contrib.gis.gdal import DataSource, OGRGeometry
 from django.contrib.gis.geos import GEOSGeometry
 import logging
-
+import random
 
 class DBLoader(object):
     
@@ -53,8 +53,8 @@ class DBLoader(object):
             
         self.logger.info('Start downloading...')
         try:
-            ds = DataSource(''.join(['/vsizip//vsicurl/', url]))
-            self.logger.info('Download done.')
+            ds = DataSource(''.join(['/vsizip//vsicurl/', url, '?r=', str(random.randint(0,10000))]))
+            self.logger.info('Download done: %s' % (''.join(['/vsizip//vsicurl/', url, '?r=', str(random.randint(0,10000))])))
         except Exception as e:
             self.logger.error('Downloading failed %s. %s' % (url, str(e)))
             return
