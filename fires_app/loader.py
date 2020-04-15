@@ -94,13 +94,16 @@ class ModisDBLoader(DBLoader):
                 self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.id, data['confidence']))
                 return fire, True
         except FireModis.DoesNotExist:
+            pass
 
-            try: 
-                self.logger.info('Add fire Modis: %s %s' % (fire.id, data['date']))
-                return FireModis.objects.get_or_create(**data)
-            except DatabaseError as e:
-                self.logger.error('%s database error: %s' % (FireModis, e))
-                return fire, False
+            self.logger.info('Add fire Modis: %s %s' % (fire.id, data['date']))
+            return FireModis.objects.get_or_create(**data)
+#            try: 
+#                self.logger.info('Add fire Modis: %s %s' % (fire.id, data['date']))
+#                return FireModis.objects.get_or_create(**data)
+#            except DatabaseError as e:
+#                self.logger.error('%s database error: %s' % (FireModis, e))
+#                return fire, False
 
 
 class ViirsDBLoader(DBLoader):
