@@ -64,7 +64,6 @@ class DBLoader(object):
 class ModisDBLoader(DBLoader):
     
     LOGGER_NAME = 'update.modis.dbloader'
-    import random
 
     def __init__(self):
         self.logger = logging.getLogger(self.LOGGER_NAME)
