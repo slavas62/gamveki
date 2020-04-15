@@ -5,7 +5,6 @@ from fires_app.models import FireModis, FireViirs, Satellite
 from django.contrib.gis.gdal import DataSource, OGRGeometry
 from django.contrib.gis.geos import GEOSGeometry
 import logging
-import random
 
 class DBLoader(object):
     
@@ -65,7 +64,8 @@ class DBLoader(object):
 class ModisDBLoader(DBLoader):
     
     LOGGER_NAME = 'update.modis.dbloader'
-    
+    import random
+
     def __init__(self):
         self.logger = logging.getLogger(self.LOGGER_NAME)
         self.logger.setLevel(logging.INFO)
@@ -94,8 +94,6 @@ class ModisDBLoader(DBLoader):
                 self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.id, data['confidence']))
                 return fire, True
         except FireModis.DoesNotExist:
-            pass
-
             self.logger.info('Add fire Modis: %s %s' % (fire.id, data['date']))
             return FireModis.objects.get_or_create(**data)
 #            try: 
@@ -145,10 +143,11 @@ class ViirsDBLoader(DBLoader):
                 self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.id, data['confidence']))
                 return fire, True
         except FireViirs.DoesNotExist:
-            
-            try: 
-                self.logger.info('Add fire Viirs: %s %s' % (fire.id, data['date']))
-                return FireViirs.objects.get_or_create(**data)
-            except DatabaseError as e:
-                self.logger.error('%s database error: %s' % (FireViirs, e))
-                return fire, False
+            self.logger.info('Add fire Viirs: %s %s' % (fire.id, data['date']))
+            return FireViirs.objects.get_or_create(**data)
+#            try: 
+#                self.logger.info('Add fire Viirs: %s %s' % (fire.id, data['date']))
+#                return FireViirs.objects.get_or_create(**data)
+#            except DatabaseError as e:
+#                self.logger.error('%s database error: %s' % (FireViirs, e))
+#                return fire, False
