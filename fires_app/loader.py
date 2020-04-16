@@ -84,7 +84,7 @@ class ModisDBLoader(DBLoader):
             'night': bool(True if feature['DAYNIGHT']=='N' else False),
             'geometry': feature.geom.geos
         }
-        self.logger.info('Fire Modis: %s - %s - %s' % (data['fpr'], data['confidence'], data['date']))
+        self.logger.info('Fire Modis: %s - %s - %s' % (data['frp'], data['confidence'], data['date']))
         
         try:
             fire = FireModis.objects.get(geometry=data['geometry'], date=data['date'])
@@ -135,7 +135,7 @@ class ViirsDBLoader(DBLoader):
             'night': bool(True if feature['DAYNIGHT']=='N' else False),
             'geometry': feature.geom.geos
         }
-        self.logger.info('Fire Viirs: %s - %s - %s' % (data['fpr'], data['confidence'], data['date']))
+        self.logger.info('Fire Viirs: %s - %s - %s' % (data['frp'], data['confidence'], data['date']))
 
         try:
             fire = FireViirs.objects.get(geometry=data['geometry'], date=data['date'])
