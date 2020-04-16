@@ -84,7 +84,6 @@ class ModisDBLoader(DBLoader):
             'night': bool(True if feature['DAYNIGHT']=='N' else False),
             'geometry': feature.geom.geos
         }
-        self.logger.info('Fire Modis: %s - %s - %s' % (data['frp'], data['confidence'], data['date']))
         
         try:
             fire = FireModis.objects.get(geometry=data['geometry'], date=data['date'])
@@ -94,7 +93,7 @@ class ModisDBLoader(DBLoader):
                 self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.id, data['confidence']))
                 return fire, True
         except FireModis.DoesNotExist:
-#            self.logger.info('Add fire Modis: %s - %s' % (data['confidence'], data['date']))
+            self.logger.info('Fire Modis: %s - %s - %s' % (data['frp'], data['confidence'], data['date']))
             return FireModis.objects.get_or_create(**data)
 #            try: 
 #                self.logger.info('Add fire Modis: %s %s' % (fire.id, data['date']))
@@ -135,7 +134,6 @@ class ViirsDBLoader(DBLoader):
             'night': bool(True if feature['DAYNIGHT']=='N' else False),
             'geometry': feature.geom.geos
         }
-        self.logger.info('Fire Viirs: %s - %s - %s' % (data['frp'], data['confidence'], data['date']))
 
         try:
             fire = FireViirs.objects.get(geometry=data['geometry'], date=data['date'])
@@ -145,7 +143,7 @@ class ViirsDBLoader(DBLoader):
                 self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.id, data['confidence']))
                 return fire, True
         except FireViirs.DoesNotExist:
-#            self.logger.info('Add fire Viirs: %s - %s' % (data['confidence'], data['date']))
+            self.logger.info('Fire Viirs: %s - %s - %s' % (data['frp'], data['confidence'], data['date']))
             return FireViirs.objects.get_or_create(**data)
 #            try: 
 #                self.logger.info('Add fire Viirs: %s %s' % (fire.id, data['date']))
