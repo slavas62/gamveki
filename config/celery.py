@@ -22,7 +22,7 @@ app.conf.beat_scheduler = 'django_celery_beat.schedulers.DatabaseScheduler'
 app.conf.beat_schedule = {
     # 00:00 4:00 8:00 12:00 16:00 20:00 24:00
     'update-modis': {
-        'task': '.tasks.modis_update_task',
+        'task': 'fires_app.tasks.modis_update_task',
         'schedule': crontab(minute=0, hour='0,4,8,12,16,20'),
     },
     'update-viirs': {
