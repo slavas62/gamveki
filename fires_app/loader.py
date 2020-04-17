@@ -52,8 +52,9 @@ class DBLoader(object):
             
         self.logger.info('Start downloading...')
         try:
+            ds = []
             ds = DataSource(''.join(['/vsizip//vsicurl/', url]))
-            self.logger.info('Download done: %s' % (''.join(['/vsizip//vsicurl/', url])))
+            self.logger.info('Download done: %s: %s' % (ds.name, ''.join(['/vsizip//vsicurl/', url])))
         except Exception as e:
             self.logger.error('Downloading failed %s. %s' % (url, str(e)))
             return
