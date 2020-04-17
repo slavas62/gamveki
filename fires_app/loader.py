@@ -54,12 +54,15 @@ class DBLoader(object):
         try:
             ds = []
             ds = DataSource(''.join(['/vsizip//vsicurl/', url]))
-            self.logger.info('Download done: %s: %s' % (ds.name, ''.join(['/vsizip//vsicurl/', url])))
+            self.logger.info('Download done: %s' % (ds.name))
+            layer = ds[0]
+            self.update_features(layer, filter_geometry)
+            return
+            
         except Exception as e:
             self.logger.error('Downloading failed %s. %s' % (url, str(e)))
             return
-        layer = ds[0]
-        self.update_features(layer, filter_geometry)
+        
     
 
 class ModisDBLoader(DBLoader):
@@ -88,11 +91,13 @@ class ModisDBLoader(DBLoader):
         
         try:
             fire = FireModis.objects.get(geometry=data['geometry'], date=data['date'])
+            self.logger.info('Fire Modis Id: %s - %s - %s' % (fire.id, data['confidence'], data['date']))
             if fire.confidence < data['confidence']:
                 fire.update(**data)
                 fire.save()
                 self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.id, data['confidence']))
                 return fire, True
+            
         except FireModis.DoesNotExist:
             self.logger.info('Fire Modis: %s - %s - %s' % (data['frp'], data['confidence'], data['date']))
             return FireModis.objects.get_or_create(**data)
@@ -138,11 +143,13 @@ class ViirsDBLoader(DBLoader):
 
         try:
             fire = FireViirs.objects.get(geometry=data['geometry'], date=data['date'])
+            self.logger.info('Fire Viirs Id: %s - %s - %s' % (fire.id, data['confidence'], data['date']))
             if fire.confidence < data['confidence']:
                 fire.update(**data)
                 fire.save()
                 self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.id, data['confidence']))
                 return fire, True
+            
         except FireViirs.DoesNotExist:
             self.logger.info('Fire Viirs: %s - %s - %s' % (data['frp'], data['confidence'], data['date']))
             return FireViirs.objects.get_or_create(**data)
