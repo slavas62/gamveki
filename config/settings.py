@@ -112,6 +112,11 @@ if not CELERY_BROKER_URL:
 #   'fires_app.tasks.viirs_update_task': {'queue': 'fires', },
 #}
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
