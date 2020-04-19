@@ -43,7 +43,7 @@ class DBLoader(object):
                 continue
             
 #            fire.save()
-        self.logger.info('Updated %s features.' % (addf + 1))
+        self.logger.info('Updated %s features.' % (addf))
     
     def update(self, url, filter_geometry=None):
         if filter_geometry:
