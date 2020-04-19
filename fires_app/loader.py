@@ -19,8 +19,8 @@ class DBLoader(object):
     
     @transaction.atomic
     def update_features(self, features, filter_geometry=None):
-        self.logger.info('Update feature...')
-        addf = 1
+        self.logger.info('Update features...')
+        addf = 0
         
         for feat in features:
             if feat.geom.geom_type != 'Point':
@@ -43,7 +43,7 @@ class DBLoader(object):
                 continue
             
 #            fire.save()
-        self.logger.info('Updated %s feature.' % (addf))
+        self.logger.info('Updated %s features.' % (addf + 1))
     
     def update(self, url, filter_geometry=None):
         if filter_geometry:
