@@ -82,8 +82,18 @@ TEMPLATES = [
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
+# DATABASES = {
+#     'default': dj_database_url.config(default='postgres:///'),
+# }
 DATABASES = {
-    'default': dj_database_url.config(default='postgres:///'),
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis', # Add 'postgresql_psycopg2', 'postgresql'
+        'NAME': 'fires',
+        'USER': 'postgres',
+        'PASSWORD': 'ntnhfrcby_19',
+        'HOST': '192.168.31.8',
+        'PORT': '5432',
+    }
 }
 
 # Internationalization
