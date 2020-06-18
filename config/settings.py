@@ -87,14 +87,14 @@ DATABASES = {
     'default': dj_database_url.config(default='postgres:///'),
 }
 
-# Для доступа к контейнеру БД на другой виртуалке, находящейся во внутренней сети
+# Для доступа по внутрисетевому адрессу к контейнеру БД на другой виртуалке, находящейся во внутренней сети
 #DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.contrib.gis.db.backends.postgis', # Add 'postgresql_psycopg2', 'postgresql'
 #        'NAME': 'fires',
 #        'USER': 'postgres',
 #        'PASSWORD': 'ntnhfrcby_19',
-#        'HOST': '192.168.31.8', # сетевой внутренний IP адрес другой виртуалки
+#        'HOST': '192.168.31.8', # внутрисетевой IP адрес другой виртуалки
 #        'PORT': '5432',
 #    }
 #}
