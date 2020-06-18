@@ -79,7 +79,8 @@ class ModisDBLoader(DBLoader):
     def fire_from_feature(self, feature):
         acq_datetime = ''.join([str(feature['ACQ_DATE']), str(feature['ACQ_TIME'])])
         data = {
-            'date': datetime.strptime(acq_datetime, '%Y-%m-%d%H%M'),
+            'date': datetime.strptime(acq_datetime, '%Y-%m-%d'),
+            'time': datetime.strptime(acq_datetime, '%H:%M:%S'),
             'satellite': Satellite.objects.get(short_satellite_name=str(feature['SATELLITE'])),
             'confidence': Decimal(str(feature['CONFIDENCE'])),
             'frp': Decimal(str(feature['FRP'])),
@@ -133,7 +134,8 @@ class ViirsDBLoader(DBLoader):
     def fire_from_feature(self, feature):
         acq_datetime = ''.join([str(feature['ACQ_DATE']), str(feature['ACQ_TIME'])])
         data = {
-            'date': datetime.strptime(acq_datetime, '%Y-%m-%d%H%M'),
+            'date': datetime.strptime(acq_datetime, '%Y-%m-%d'),
+            'time': datetime.strptime(acq_datetime, '%H:%M:%S'),
             'satellite': Satellite.objects.get(short_satellite_name=str(feature['SATELLITE'])),
             'confidence': self.get_confidence(str(feature['CONFIDENCE'])),
             'frp': Decimal(str(feature['FRP'])),
