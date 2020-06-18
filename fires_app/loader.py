@@ -80,7 +80,7 @@ class ModisDBLoader(DBLoader):
         acq_datetime = ''.join([str(feature['ACQ_DATE']), str(feature['ACQ_TIME'])])
         date = datetime.strptime(acq_datetime, '%Y-%m-%d%H%M')
         cdate = date.strftime('%Y-%m-%d')
-        ctime = date.strftime('%H:%M')
+        ctime = date.strftime('%H:%M:%S')
         
         data = {
             'date': date,
@@ -140,7 +140,7 @@ class ViirsDBLoader(DBLoader):
         acq_datetime = ''.join([str(feature['ACQ_DATE']), str(feature['ACQ_TIME'])])
         date = datetime.strptime(acq_datetime, '%Y-%m-%d%H%M')
         cdate = date.strftime('%Y-%m-%d')
-        ctime = date.strftime('%H:%M')
+        ctime = date.strftime('%H:%M:%S')
         
         data = {
             'date': date,
