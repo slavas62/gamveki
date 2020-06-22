@@ -83,21 +83,22 @@ TEMPLATES = [
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
 # Для доступа к контейнеру БД на одной виртуалке
-DATABASES = {
-    'default': dj_database_url.config(default='postgres:///'),
-}
+#DATABASES = {
+#    'default': dj_database_url.config(default='postgres:///'),
+#}
+
 
 # Для доступа по внутрисетевому адрессу к контейнеру БД на другой виртуалке, находящейся во внутренней сети
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.contrib.gis.db.backends.postgis', # Add 'postgresql_psycopg2', 'postgresql'
-#        'NAME': 'fires',
-#        'USER': 'postgres',
-#        'PASSWORD': 'ntnhfrcby_19',
-#        'HOST': '192.168.31.8', # внутрисетевой IP адрес другой виртуалки
-#        'PORT': '5432',
-#    }
-#}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis', # Add 'postgresql_psycopg2', 'postgresql'
+        'NAME': 'fires',
+        'USER': 'postgres',
+        'PASSWORD': 'ntnhfrcby_19',
+        'HOST': '192.168.31.8', # внутрисетевой IP адрес другой виртуалки
+        'PORT': '5432',
+    }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
