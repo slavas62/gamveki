@@ -103,7 +103,7 @@ class ModisDBLoader(DBLoader):
             isfire = FireModis.objects.get(geometry=data['geometry'], date=data['date']) # Если используется .get(), то .update() для выбранного объекта работать не будет.
             
             if isfire.confidence < data['confidence']:
-                fire = FireModis.objects.filter(id = isfire.id) # Решаем задачу обновления (.update()) в БД через .filter()
+                fire = FireModis.objects.filter(pk = isfire.id) # Решаем задачу обновления (.update()) в БД через .filter()
                 self.logger.info('Fire Modis Id: %s - %s : %s - %s' % (fire.id, fire.confidence, data['confidence'], data['date']))
                 fire.update(**data)
                 fire.save()
@@ -165,7 +165,7 @@ class ViirsDBLoader(DBLoader):
             isfire = FireViirs.objects.get(geometry=data['geometry'], date=data['date'])
             
             if isfire.confidence < data['confidence']:
-                fire = FireViirs.objects.filter(id = isfire.id)
+                fire = FireViirs.objects.filter(pk = isfire.id)
                 self.logger.info('Fire Viirs Id: %s - %s : %s - %s' % (fire.id, fire.confidence, data['confidence'], data['date']))
                 fire.update(**data)
                 fire.save()
