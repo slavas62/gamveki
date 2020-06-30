@@ -98,17 +98,17 @@ class ModisDBLoader(DBLoader):
         }
         
         try:
-            isFire = FireModis.objects.get(geometry=data['geometry'], date=data['date']) # Если используется .get(), то .update() для выбранного объекта работать не будет.
+            isfire = FireModis.objects.get(geometry=data['geometry'], date=data['date']) # Если используется .get(), то .update() для выбранного объекта работать не будет.
             
-            if isFire.confidence < data['confidence']:
-                fire = FireModis.objects.filter(id = isFire.id) # Решаем задачу обновления (.update()) в БД через .filter()
+            if isfire.confidence < data['confidence']:
+                fire = FireModis.objects.filter(id = isfire.id) # Решаем задачу обновления (.update()) в БД через .filter()
                 self.logger.info('Fire Modis Id: %s - %s : %s - %s' % (fire.id, fire.confidence, data['confidence'], data['date']))
                 fire.update(**data)
                 fire.save()
                 self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.id, data['confidence']))
                 return fire, True
     
-            return isFire, False
+            return isfire, False
             
         except FireModis.DoesNotExist:
             return FireModis.objects.get_or_create(**data), True
@@ -160,17 +160,17 @@ class ViirsDBLoader(DBLoader):
         }
 
         try:
-            isFire = FireViirs.objects.get(geometry=data['geometry'], date=data['date'])
+            isfire = FireViirs.objects.get(geometry=data['geometry'], date=data['date'])
             
-            if isFire.confidence < data['confidence']:
-                fire = FireViirs.objects.filter(id = isFire.id)
+            if isfire.confidence < data['confidence']:
+                fire = FireViirs.objects.filter(id = isfire.id)
                 self.logger.info('Fire Viirs Id: %s - %s : %s - %s' % (fire.id, fire.confidence, data['confidence'], data['date']))
                 fire.update(**data)
                 fire.save()
                 self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.id, data['confidence']))
                 return fire, True
 
-            return isFire, False
+            return isfire, False
             
         except FireViirs.DoesNotExist:
            return FireViirs.objects.get_or_create(**data), True
