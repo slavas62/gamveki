@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from django.db import transaction
 from datetime import datetime
 from decimal import Decimal
