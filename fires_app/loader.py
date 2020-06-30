@@ -104,10 +104,10 @@ class ModisDBLoader(DBLoader):
             
             if isfire.confidence < data['confidence']:
                 fire = FireModis.objects.filter(pk = isfire.id) # Решаем задачу обновления (.update()) в БД через .filter()
-                self.logger.info('Fire Modis Id: %s - %s : %s - %s' % (fire.id, fire.confidence, data['confidence'], data['date']))
+                self.logger.info('Fire Modis Id: %s - %s : %s - %s' % (fire.pk, fire.confidence, data['confidence'], data['date']))
                 fire.update(**data)
                 fire.save()
-                self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.id, data['confidence']))
+                self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.pk, data['confidence']))
                 return fire, True
     
             return isfire, False
@@ -166,10 +166,10 @@ class ViirsDBLoader(DBLoader):
             
             if isfire.confidence < data['confidence']:
                 fire = FireViirs.objects.filter(pk = isfire.id)
-                self.logger.info('Fire Viirs Id: %s - %s : %s - %s' % (fire.id, fire.confidence, data['confidence'], data['date']))
+                self.logger.info('Fire Viirs Id: %s - %s : %s - %s' % (fire.pk, fire.confidence, data['confidence'], data['date']))
                 fire.update(**data)
                 fire.save()
-                self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.id, data['confidence']))
+                self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.pk, data['confidence']))
                 return fire, True
 
             return isfire, False
