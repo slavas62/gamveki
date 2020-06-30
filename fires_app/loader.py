@@ -100,7 +100,7 @@ class ModisDBLoader(DBLoader):
         
         try:
             fire = FireModis.objects.get(geometry=data['geometry'], date=data['date'])
-#            self.logger.info('Fire Modis Id: %s - %s - %s' % (fire.id, data['confidence'], data['date']))
+            self.logger.info('Fire Modis Id: %s - %s - %s' % (fire.id, fire.confidence, data['confidence'], data['date']))
             if fire.confidence < data['confidence']:
                 fire.update(**data)
                 fire.save()
@@ -160,7 +160,7 @@ class ViirsDBLoader(DBLoader):
 
         try:
             fire = FireViirs.objects.get(geometry=data['geometry'], date=data['date'])
-#            self.logger.info('Fire Viirs Id: %s - %s - %s' % (fire.id, data['confidence'], data['date']))
+            self.logger.info('Fire Viirs Id: %s - %s - %s' % (fire.id, fire.confidence, data['confidence'], data['date']))
             if fire.confidence < data['confidence']:
                 fire.update(**data)
                 fire.save()
