@@ -100,8 +100,8 @@ class ModisDBLoader(DBLoader):
         
         try:
             fire = FireModis.objects.get(geometry=data['geometry'], date=data['date'])
-            self.logger.info('Fire Modis Id: %s - %s - %s - %s' % (fire.id, fire.confidence, data['confidence'], data['date']))
             if fire.confidence < data['confidence']:
+                self.logger.info('Fire Modis Id: %s - %s : %s - %s' % (fire.id, fire.confidence, data['confidence'], data['date']))
                 fire.update(**data)
                 fire.save()
                 self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.id, data['confidence']))
@@ -160,8 +160,8 @@ class ViirsDBLoader(DBLoader):
 
         try:
             fire = FireViirs.objects.get(geometry=data['geometry'], date=data['date'])
-            self.logger.info('Fire Viirs Id: %s - %s - %s - %s' % (fire.id, fire.confidence, data['confidence'], data['date']))
             if fire.confidence < data['confidence']:
+                self.logger.info('Fire Viirs Id: %s - %s : %s - %s' % (fire.id, fire.confidence, data['confidence'], data['date']))
                 fire.update(**data)
                 fire.save()
                 self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.id, data['confidence']))
