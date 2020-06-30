@@ -27,14 +27,14 @@ class DBLoader(object):
                 self.logger.warning('Invalid geometry type: %s' % feat.geom.wkt)
                 continue
             try:
-                fire, created = self.fire_from_feature(feat)
-#                fire, addf = self.fire_from_feature(feat, addf)
+                fire, created = self.fire_from_feature(feat) # Создаем новый объект в БД и ли обновляем старый.
             except TypeError as e:
                 self.logger.warning('Data error: %s' % str(e))
                 continue
             except ValueError as e:
                 self.logger.warning('Value error: %s' % str(e))
                 continue
+            
             if (filter_geometry and not fire.geometry.intersects(filter_geometry)):
                 continue
             
@@ -42,7 +42,6 @@ class DBLoader(object):
                 addf = addf + 1
                 continue
             
-#            fire.save()
         self.logger.info('Updated %s features.' % (addf))
     
     def update(self, url, filter_geometry=None):
@@ -99,17 +98,17 @@ class ModisDBLoader(DBLoader):
         }
         
         try:
-            isFire = FireModis.objects.get(geometry=data['geometry'], date=data['date'])
+            isFire = FireModis.objects.get(geometry=data['geometry'], date=data['date']) # Если используется .get(), то .update() для выбранного объекта работать не будет.
             
             if isFire.confidence < data['confidence']:
-                fire = FireModis.objects.filter(id = isFire.id)
+                fire = FireModis.objects.filter(id = isFire.id) # Решаем задачу обновления (.update()) в БД через .filter()
                 self.logger.info('Fire Modis Id: %s - %s : %s - %s' % (fire.id, fire.confidence, data['confidence'], data['date']))
                 fire.update(**data)
                 fire.save()
                 self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.id, data['confidence']))
                 return fire, True
     
-            return fire, False
+            return isFire, False
             
         except FireModis.DoesNotExist:
             return FireModis.objects.get_or_create(**data), True
@@ -171,7 +170,7 @@ class ViirsDBLoader(DBLoader):
                 self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.id, data['confidence']))
                 return fire, True
 
-            return fire, False
+            return isFire, False
             
         except FireViirs.DoesNotExist:
            return FireViirs.objects.get_or_create(**data), True
