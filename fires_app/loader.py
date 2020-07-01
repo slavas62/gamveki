@@ -104,7 +104,7 @@ class ModisDBLoader(DBLoader):
             
             if isfire.confidence < data['confidence']:
                 fire = FireModis.objects.filter(pk = isfire.id) # Решаем задачу обновления (.update()) в БД через .filter()
-                self.logger.info('Fire Modis Id: %s - %s : %s - %s' % (fire.pk, fire.confidence, data['confidence'], data['date']))
+#                self.logger.info('Fire Modis Id: %s - %s : %s - %s' % (fire.pk, fire.confidence, data['confidence'], data['date']))
                 fire.update(**data)
                 fire.save()
                 self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.pk, data['confidence']))
