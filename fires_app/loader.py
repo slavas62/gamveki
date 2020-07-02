@@ -104,24 +104,14 @@ class ModisDBLoader(DBLoader):
             
             if isfire.confidence < data['confidence']:
                 fire = FireModis.objects.filter(pk = isfire.id) # Решаем задачу обновления (.update()) в БД через .filter()
-                self.logger.info('Fire Modis Confidence: %s %s' % (fire['confidence'], fire['data']))
-#                self.logger.info('Fire Modis Id: %s - %s : %s - %s' % (fire.pk, fire.confidence, data['confidence'], data['date']))
                 fire.update(**data)
-#                fire.save()
-#                self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.pk, data['confidence']))
+                self.logger.info('Fire Modis Confidence: %s %s' % (fire[0]['confidence'], fire[0]['data']))
                 return fire, True
     
             return isfire, False
             
         except FireModis.DoesNotExist:
             return FireModis.objects.get_or_create(**data), True
-
-#            try: 
-#                self.logger.info('Add fire Modis: %s %s' % (fire.id, data['date']))
-#                return FireModis.objects.get_or_create(**data)
-#            except DatabaseError as e:
-#                self.logger.error('%s database error: %s' % (FireModis, e))
-#                return fire, False
 
 
 class ViirsDBLoader(DBLoader):
@@ -167,20 +157,10 @@ class ViirsDBLoader(DBLoader):
             
             if isfire.confidence < data['confidence']:
                 fire = FireViirs.objects.filter(pk = isfire.id)
-                self.logger.info('Fire Viirs Confidence: %s %s' % (fire['confidence'], fire['data']))
-#                self.logger.info('Fire Viirs Id: %s - %s : %s - %s' % (fire.pk, fire.confidence, data['confidence'], data['date']))
                 fire.update(**data)
-#                fire.save()
-#                self.logger.info('Update exist record with small confidence.Id %s confidence %s'%(fire.pk, data['confidence']))
                 return fire, True
 
             return isfire, False
             
         except FireViirs.DoesNotExist:
            return FireViirs.objects.get_or_create(**data), True
-#            try: 
-#                self.logger.info('Add fire Viirs: %s %s' % (fire.id, data['date']))
-#                return FireViirs.objects.get_or_create(**data)
-#            except DatabaseError as e:
-#                self.logger.error('%s database error: %s' % (FireViirs, e))
-#                return fire, False
