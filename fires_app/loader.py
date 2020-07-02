@@ -105,7 +105,7 @@ class ModisDBLoader(DBLoader):
             if isfire.confidence < data['confidence']:
                 fire = FireModis.objects.filter(pk = isfire.id) # Решаем задачу обновления (.update()) в БД через .filter()
                 fire.update(**data)
-                self.logger.info('Fire Modis Confidence: %s - %s | %s' % (fire[0].id, fire[0].confidence, fire[0].date))
+                self.logger.info('Fire Modis Confidence: %s - %s | %s' % (fire[0].id, fire[0].confidence, data['confidence']))
                 return fire, True
     
             return isfire, False
@@ -158,7 +158,7 @@ class ViirsDBLoader(DBLoader):
             if isfire.confidence < data['confidence']:
                 fire = FireViirs.objects.filter(pk = isfire.id)
                 fire.update(**data)
-                self.logger.info('Fire Modis Confidence: %s - %s | %s' % (fire[0].id, fire[0].confidence, fire[0].date))
+                self.logger.info('Fire Modis Confidence: %s - %s | %s' % (fire[0].id, fire[0].confidence, data['confidence']))
                 return fire, True
 
             return isfire, False
