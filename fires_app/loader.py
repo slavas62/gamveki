@@ -132,13 +132,17 @@ class ViirsDBLoader(DBLoader):
     
     def fire_from_feature(self, feature):
         acq_datetime = ''.join([str(feature['ACQ_DATE']), str(feature['ACQ_TIME'])])
-        date = datetime.strptime(acq_datetime, '%Y-%m-%d%H%M')
-        cdate = date.strftime('%Y-%m-%d')
-        ctime = date.strftime('%H:%M:%S')
+        try:
+            date = datetime.strptime(acq_datetime, '%Y-%m-%d%H%M')
+            cdate = date.strftime('%Y-%m-%d')
+            ctime = date.strftime('%H:%M:%S')
+        except ValueError:
+            print('bad date: ' + acq_datetime + ' ' + ValueError)
+            return None, False
         
         data = {
             'date': date,
-#            'cdate': cdate, # datetime.strptime(acq_datetime, '%Y-%m-%d'),
+            'cdate': cdate, # datetime.strptime(acq_datetime, '%Y-%m-%d'),
 #            'ctime': ctime, # datetime.strptime(acq_datetime, '%H%M'),
             'satellite': Satellite.objects.get(short_satellite_name=str(feature['SATELLITE'])),
             'confidence': self.get_confidence(str(feature['CONFIDENCE'])),
