@@ -137,7 +137,7 @@ class ViirsDBLoader(DBLoader):
             cdate = date.strftime('%Y-%m-%d')
             ctime = date.strftime('%H:%M:%S')
         except ValueError:
-            print('bad date: ' + acq_datetime + ' ' + ValueError)
+            print('bad date: ' + acq_datetime)
             return None, False
         
         data = {
