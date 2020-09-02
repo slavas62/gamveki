@@ -143,9 +143,9 @@ class ViirsDBLoader(DBLoader):
         data = {
             'date': date,
             'cdate': cdate, # datetime.strptime(acq_datetime, '%Y-%m-%d'),
-#            'ctime': ctime, # datetime.strptime(acq_datetime, '%H%M'),
+            'ctime': ctime, # datetime.strptime(acq_datetime, '%H%M'),
             'satellite': Satellite.objects.get(short_satellite_name=str(feature['SATELLITE'])),
-            'confidence': self.get_confidence(str(feature['CONFIDENCE'])),
+            'confidence': Decimal(str(feature['CONFIDENCE'])), # self.get_confidence(str(feature['CONFIDENCE'])),
             'frp': Decimal(str(feature['FRP'])),
             'brightness_ti4': Decimal(str(feature['BRIGHT_TI4'])),
             'brightness_ti5': Decimal(str(feature['BRIGHT_TI5'])),
