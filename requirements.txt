@@ -1,8 +1,8 @@
 uwsgi
 Django==1.11.11
 psycopg2==2.6
+celery==4.2
 dj-database-url
-celery
 redis
 django-solo
 flower==0.9.1
