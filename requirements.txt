@@ -1,6 +1,6 @@
 uwsgi
-Django
-psycopg2
+Django==1.11.19
+psycopg2==2.6
 dj-database-url
 celery
 redis
