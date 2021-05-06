@@ -129,6 +129,7 @@ class ViirsDBLoader(DBLoader):
             return 50
         if confidence == 'high':
             return 100
+        return 0
     
     def fire_from_feature(self, feature):
         acq_datetime = ''.join([str(feature['ACQ_DATE']), str(feature['ACQ_TIME'])])
