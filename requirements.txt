@@ -1,10 +1,10 @@
 uwsgi
-Django==1.11.11
+Django==1.11
 psycopg2==2.6
-celery==4.2
-dj-database-url
-redis
-django-solo
-flower==0.9.1
-django-celery-beat==1.6.0
+dj-database-url==0.4.2
 GDAL==1.9.0
+celery==4.2
+redis==2.10.5
+django-solo==1.1.2
+flower==0.9.1
+django-celery-beat==1.0.1
