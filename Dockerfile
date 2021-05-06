@@ -22,9 +22,9 @@ ADD . .
 
 RUN virtualenv /env
 
-# RUN /env/bin/pip install 'pip<9' 'setuptools>=42'
+RUN /env/bin/pip install 'pip<9' 'setuptools>=42'
 
-RUN /env/bin/pip install --upgrade pip
+# RUN /env/bin/pip install --upgrade pip
 
 RUN cp ./docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf && \
     cp ./docker/nginx.conf /etc/nginx/conf.d/default.conf && \
