@@ -22,7 +22,7 @@ ADD . .
 
 RUN virtualenv /env
 
-RUN /env/bin/pip install 'pip<9' 'setuptools>=42'
+# RUN /env/bin/pip install 'pip<9' 'setuptools>=42'
 
 # RUN /env/bin/pip install --upgrade pip
 
