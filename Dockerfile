@@ -26,12 +26,13 @@ RUN virtualenv /env
 
 # RUN /env/bin/pip install --upgrade pip
 
+
 RUN cp ./docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf && \
     cp ./docker/nginx.conf /etc/nginx/conf.d/default.conf && \
     CPLUS_INCLUDE_PATH=/usr/include/gdal C_INCLUDE_PATH=/usr/include/gdal \
     /env/bin/pip install -r requirements.txt
 
-RUN /env/bin/python /app/manage.py collectstatic --noinput
+# RUN /env/bin/python /app/manage.py collectstatic --noinput
 
 RUN mkdir /data
 
