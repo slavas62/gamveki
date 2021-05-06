@@ -83,11 +83,11 @@ TEMPLATES = [
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
 # Для доступа к контейнеру БД на одной виртуалке (НЦ ОМЗ)
-#DATABASES = {
-#    'default': dj_database_url.config(default='postgres:///'),
-#}
+DATABASES = {
+    'default': dj_database_url.config(default='postgres:///'),
+}
 
-
+'''
 # Для доступа по внутрисетевому адрессу к контейнеру БД на другой виртуалке, находящейся во внутренней сети (ЦОД РКС)
 DATABASES = {
     'default': {
@@ -99,7 +99,7 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
+'''
 # Internationalization
 # https://docs.djangoproject.com/en/1.7/topics/i18n/
 
