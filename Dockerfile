@@ -24,12 +24,12 @@ RUN virtualenv /env
 
 RUN /env/bin/pip install -U pip
 #RUN /env/bin/pip install --upgrade setuptools
-#RUN /env/bin/pip install uwsgi
+#RUN /env/bin/pip2 install uwsgi
 
 RUN cp ./docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf && \
     cp ./docker/nginx.conf /etc/nginx/conf.d/default.conf && \
     CPLUS_INCLUDE_PATH=/usr/include/gdal C_INCLUDE_PATH=/usr/include/gdal \
-    /env/bin/pip install -r requirements.txt
+    /env/bin/pip2 install -r requirements.txt
 
 RUN /env/bin/python /app/manage.py collectstatic --noinput
 
