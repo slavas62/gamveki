@@ -29,7 +29,10 @@ class DBLoader(object):
                 self.logger.warning('Invalid geometry type: %s' % feat.geom.wkt)
                 continue
             try:
-                fire, created = self.fire_from_feature(feat) # Создаем новый объект в БД и ли обновляем старый.
+                fire, created = self.fire_from_feature(feat) # Создаем новый объект в БД или обновляем старый.
+            except Exception as e:
+                self.logger.warning('Feature error: %s' % str(e))
+                continue
             except TypeError as e:
                 self.logger.warning('Data error: %s' % str(e))
                 continue
