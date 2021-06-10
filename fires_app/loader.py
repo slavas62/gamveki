@@ -157,8 +157,11 @@ class ViirsDBLoader(DBLoader):
                 'night': bool(True if feature['DAYNIGHT']=='N' else False),
                 'geometry': feature.geom.geos
             }
-        except Exception as e:
+        except TypeError as e:
             self.logger.warning('Data error: %s' % str(e))
+            return None, False
+        except ValueError:
+            print('bad data: ' + feature)
             return None, False
         
         try:
