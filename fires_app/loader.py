@@ -47,7 +47,6 @@ class DBLoader(object):
         self.logger.info('Updated %s features.' % (addf))
     
     def update(self, url, filter_geometry=None):
-        return
         if filter_geometry:
             if isinstance(filter_geometry, str):
                 filter_geometry = GEOSGeometry(filter_geometry)
