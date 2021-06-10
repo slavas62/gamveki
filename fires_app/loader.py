@@ -141,22 +141,26 @@ class ViirsDBLoader(DBLoader):
             print('bad date: ' + acq_datetime)
             return None, False
         
-        data = {
-            'date': date,
-            'cdate': cdate, # datetime.strptime(acq_datetime, '%Y-%m-%d'),
-            'ctime': ctime, # datetime.strptime(acq_datetime, '%H%M'),
-            'satellite': Satellite.objects.get(short_satellite_name=str(feature['SATELLITE'])),
-            'confidence': self.get_confidence(str(feature['CONFIDENCE'])),
-            'frp': Decimal(str(feature['FRP'])),
-            'brightness_ti4': Decimal(str(feature['BRIGHT_TI4'])),
-            'brightness_ti5': Decimal(str(feature['BRIGHT_TI5'])),
-            'scan': Decimal(str(feature['SCAN'])),
-            'track': Decimal(str(feature['TRACK'])),
-            'version': str(feature['VERSION']),
-            'night': bool(True if feature['DAYNIGHT']=='N' else False),
-            'geometry': feature.geom.geos
-        }
-
+        try:
+            data = {
+                'date': date,
+                'cdate': cdate, # datetime.strptime(acq_datetime, '%Y-%m-%d'),
+                'ctime': ctime, # datetime.strptime(acq_datetime, '%H%M'),
+                'satellite': Satellite.objects.get(short_satellite_name=str(feature['SATELLITE'])),
+                'confidence': self.get_confidence(str(feature['CONFIDENCE'])),
+                'frp': Decimal(str(feature['FRP'])),
+                'brightness_ti4': Decimal(str(feature['BRIGHT_TI4'])),
+                'brightness_ti5': Decimal(str(feature['BRIGHT_TI5'])),
+                'scan': Decimal(str(feature['SCAN'])),
+                'track': Decimal(str(feature['TRACK'])),
+                'version': str(feature['VERSION']),
+                'night': bool(True if feature['DAYNIGHT']=='N' else False),
+                'geometry': feature.geom.geos
+            }
+        except ValueError:
+            print('bad data: ' + feature)
+            return None, False
+        
         try:
             isfire = FireViirs.objects.get(geometry=data['geometry'], date=data['date'])
             
