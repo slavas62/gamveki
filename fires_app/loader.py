@@ -25,24 +25,19 @@ class DBLoader(object):
         addf = 0
         
         for feat in features:
+            if feat.geom.geom_type != 'Point':
+                self.logger.warning('Invalid geometry type: %s' % feat.geom.wkt)
+                continue
             try:
-                if feat.geom.geom_type != 'Point':
-                    self.logger.warning('Invalid geometry type: %s' % feat.geom.wkt)
-                    continue
-                
                 fire, created = self.fire_from_feature(feat) # Создаем новый объект в БД или обновляем старый.
-                
             except Exception as e:
                 self.logger.warning('Feature error: %s' % str(e))
-                break
                 continue
             except TypeError as e:
                 self.logger.warning('Data error: %s' % str(e))
-                break
                 continue
             except ValueError as e:
                 self.logger.warning('Value error: %s' % str(e))
-                break
                 continue
             
             if (filter_geometry and not fire.geometry.intersects(filter_geometry)):
@@ -51,10 +46,7 @@ class DBLoader(object):
             if created:
                 addf = addf + 1
                 continue
-        else:
-            print('Feature error: %s' % str(feat))
-            return 
-                
+            
         self.logger.info('Updated %s features.' % (addf))
     
     def update(self, url, filter_geometry=None):
@@ -149,7 +141,7 @@ class ViirsDBLoader(DBLoader):
             cdate = date.strftime('%Y-%m-%d')
             ctime = date.strftime('%H:%M:%S')
         except ValueError:
-            print('bad date: ' + acq_datetime)
+            print('Bad date: ' + acq_datetime)
             return None, False
         
         try:
@@ -172,7 +164,7 @@ class ViirsDBLoader(DBLoader):
             self.logger.warning('Data error: %s' % str(e))
             return None, False
         except ValueError:
-            print('bad data: ' + feature)
+            print('Bad data: ' + feature)
             return None, False
         
         try:
