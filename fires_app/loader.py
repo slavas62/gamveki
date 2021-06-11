@@ -25,10 +25,10 @@ class DBLoader(object):
         addf = 0
         
         for feat in features:
-            if feat.geom.geom_type != 'Point':
-                self.logger.warning('Invalid geometry type: %s' % feat.geom.wkt)
-                continue
             try:
+                if feat.geom.geom_type != 'Point':
+                    self.logger.warning('Invalid geometry type: %s' % feat.geom.wkt)
+                    continue
                 fire, created = self.fire_from_feature(feat) # Создаем новый объект в БД или обновляем старый.
             except Exception as e:
                 self.logger.warning('Feature error: %s' % str(e))
