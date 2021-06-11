@@ -31,13 +31,13 @@ class DBLoader(object):
             try:
                 fire, created = self.fire_from_feature(feat) # Создаем новый объект в БД или обновляем старый.
             except Exception as e:
-                self.logger.warning('Feature error: %s' % str(e))
+                self.logger.warning('Feature error 34: %s' % str(e))
                 continue
             except TypeError as e:
-                self.logger.warning('Type error: %s' % str(e))
+                self.logger.warning('Type error 37: %s' % str(e))
                 continue
             except ValueError as e:
-                self.logger.warning('Value error: %s' % str(e))
+                self.logger.warning('Value error 40: %s' % str(e))
                 continue
             
             if (filter_geometry and not fire.geometry.intersects(filter_geometry)):
@@ -47,7 +47,7 @@ class DBLoader(object):
                 addf = addf + 1
                 continue
             
-        self.logger.info('Updated %s features.' % (addf))
+        self.logger.info('Ok. Updated %s features.' % (addf))
     
     def update(self, url, filter_geometry=None):
         if filter_geometry:
@@ -141,7 +141,7 @@ class ViirsDBLoader(DBLoader):
             cdate = date.strftime('%Y-%m-%d')
             ctime = date.strftime('%H:%M:%S')
         except ValueError:
-            print('Bad date: ' + acq_datetime)
+            print('Bad date 144: ' + acq_datetime)
             return None, False
         
         try:
@@ -161,10 +161,10 @@ class ViirsDBLoader(DBLoader):
                 'geometry': feature.geom.geos
             }
         except TypeError as e:
-            self.logger.warning('Data error: %s' % str(e))
+            self.logger.warning('Data error 164: %s' % str(e))
             return None, False
         except ValueError:
-            print('Bad data feature: ' + feature)
+            print('Bad data feature 167: ' + feature)
             return None, False
         
         try:
