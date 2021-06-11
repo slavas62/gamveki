@@ -34,7 +34,7 @@ class DBLoader(object):
                 self.logger.warning('Feature error: %s' % str(e))
                 continue
             except TypeError as e:
-                self.logger.warning('Data error: %s' % str(e))
+                self.logger.warning('Type error: %s' % str(e))
                 continue
             except ValueError as e:
                 self.logger.warning('Value error: %s' % str(e))
@@ -164,7 +164,7 @@ class ViirsDBLoader(DBLoader):
             self.logger.warning('Data error: %s' % str(e))
             return None, False
         except ValueError:
-            print('Bad data: ' + feature)
+            print('Bad data feature: ' + feature)
             return None, False
         
         try:
