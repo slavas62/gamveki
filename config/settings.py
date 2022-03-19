@@ -84,7 +84,7 @@ TEMPLATES = [
 #'''
 # Для доступа к контейнеру БД на одной виртуалке (НЦ ОМЗ)
 DATABASES = {
-    'default': dj_database_url.config(default='postgres:///'),
+    'default': dj_database_url.config(default='postgres://'),
 }
 
 '''
