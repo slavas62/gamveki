@@ -61,7 +61,7 @@ class DBLoader(object):
         self.logger.info('Start downloading...')
         try:
             ds = []
-            ds = DataSource(''.join(['/vsizip//vsicurl/', url]))
+            ds = DataSource(''.join(['/vsizip//vsicurl_streaming/', url]))
             self.logger.info('Download done: %s features' % (len(ds[0])))
             self.update_features(ds[0], filter_geometry)
             return
