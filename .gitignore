@@ -3,3 +3,4 @@
 /.pydevproject
 /.settings/org.eclipse.core.resources.prefs
 /config/settings_local.py
+/Dockerfile_ubuntu
