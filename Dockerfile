@@ -1,4 +1,4 @@
-FROM nginx:1.20.0
+FROM nginx:1.25.5
 MAINTAINER slavas62@gmail.com
 
 RUN apt-get update && apt-get install -y \
