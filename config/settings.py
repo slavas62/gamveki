@@ -94,7 +94,7 @@ DATABASES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis', # Add 'postgresql_psycopg2', 'postgresql'
-        'NAME': 'fires',
+        'NAME': 'gamveki',
         'USER': 'postgres',
         'PASSWORD': 'ntnhfrcby_19',
         'HOST': '10.200.129.16', # внутрисетевой IP адрес другой виртуалки '192.168.31.8'
